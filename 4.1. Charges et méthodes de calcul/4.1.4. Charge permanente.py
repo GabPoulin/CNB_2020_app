@@ -26,6 +26,9 @@
             cas de structures où la charge permanente du sol fait partie du système de résistance
             aux charges (voir la note A-4.1.4.1. 6)).      
 """
+from reportlab.pdfgen.canvas import Canvas
+from reportlab.lib.pagesizes import LETTER
+from reportlab.lib.units import inch as po
 
 def main():
 
@@ -44,13 +47,9 @@ def main():
 
     imprimer = str(input("Imprimer résultat? (y/n): "))
 
-    if imprimer == "y":
-        from reportlab.pdfgen.canvas import Canvas
-        from reportlab.lib.pagesizes import LETTER
-        from reportlab.lib.units import inch
-        
+    if imprimer == "y":      
         canvas = Canvas("Charge permanente.pdf", pagesize=LETTER)
-        canvas.drawString(1*inch, 10*inch, texte)
+        canvas.drawString(1*po, 10*po, texte)
         canvas.save()
 
 
