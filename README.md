@@ -1,4 +1,4 @@
-# CNB-2020
+# CNB 2020: Partie 4
 
 ## Création d'outils suivant les régles de calculs de la section 4.1. Charges et méthodes de calcul
 ### Liste d'outils de calcul:
