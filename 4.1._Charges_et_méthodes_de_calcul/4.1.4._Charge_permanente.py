@@ -30,12 +30,14 @@ from reportlab.pdfgen.canvas import Canvas
 from reportlab.lib.pagesizes import LETTER
 from reportlab.lib.units import inch as po
 
-def main():
 
+def main():
+    """main _summary_
+    """
     couches = int(input("Combien de couches dispose l'élément? "))
     charge = 0
 
-    for i in range(1,couches + 1):
+    for i in range(1, couches + 1):
         charge += float(input(f"Charge de la couche no{i}? (kPa) = "))
 
     cloisons = int(input("Charge pour cloisons (kPa) = "))
@@ -47,13 +49,12 @@ def main():
 
     imprimer = str(input("Imprimer résultat? (y/n): "))
 
-    if imprimer == "y":      
+    if imprimer == "y":
         canvas = Canvas("Charge permanente.pdf", pagesize=LETTER)
-        canvas.drawString(1*po, 10*po, texte)
+        canvas.drawString(1 * po, 10 * po, texte)
         canvas.save()
 
 
 if __name__ == "__main__":
-    pass
     main()
-
+# end
