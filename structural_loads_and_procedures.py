@@ -35,13 +35,12 @@ class LimitStatesDesign:
 
         d1 = 1.4
         d_ = 1.25
-
         l2 = 1.5
         l3 = 1
         l4 = 0.5
         l5 = 0.5
-
         s2 = 1
+        s4 = 0.5
         s5 = 0.25
 
         # 4.1.3.2.
@@ -52,6 +51,7 @@ class LimitStatesDesign:
         if self.storage_area:
             l3 += 0.5
             l4 += 0.5
+            l5 += 0.5
         # 8) & 9)
         if h_s > 0:
             d_ = 1.5
@@ -63,32 +63,27 @@ class LimitStatesDesign:
             d_ = 0.9
 
         # 4.1.5.5.
-        # co_ls_factor = 1
-        # co_l5_factor = 1
-        # co_s5_factor = 1
-        # co_ls_red_factor = 1
-        # co_l5_red_factor = 1
-        # co_s5_red_factor = 1
-        # if self.exterior_area:
-        #     if not self.car_access:
-        #         co_ls_factor = 0
-        #         if (0.5 + co_l_factor) * self.l < 0.25 * self.snow:
-        #             co_l5_factor = 0
-        #         else:
-        #             co_s5_factor = 0
-        #     co_ls_red_factor = 0.2
-        #     co_l5_red_factor = 0.4
-        #     co_s5_red_factor = 0.8
+        if self.exterior_area:
+            # 3)
+            if not self.car_access:
+                s2 = 0
+                l3 = 0
+                if l5 * self.live < s5 * self.snow:
+                    l5 = 0
+                else:
+                    s5 = 0
+            # 4) a)
+            s2 = 0.2
+            s4 = 0.2
+            s5 = 0.2
 
-        # Combinaisons de charges
+        # Combinaisons de charges (Tableau 4.1.3.2.-A)
         c_1 = d1 * self.dead
         c_2 = d_ * self.dead + l2 * self.live + max(s2 * self.snow, 0.4 * self.wind)
         c_3 = d_ * self.dead + 1.5 * self.snow + max(l3 * self.live, 0.4 * self.wind)
-        c_4 = d_ * self.dead + 1.4 * self.wind + max(l4 * self.live, 0.5 * self.snow)
+        c_4 = d_ * self.dead + 1.4 * self.wind + max(l4 * self.live, s4 * self.snow)
         c_5 = self.dead + self.earthquake + l5 * self.live + s5 * self.snow
-
         elu = max(c_1, c_2, c_3, c_4, c_5)
-
         return elu
 
     def elts(self):
@@ -97,8 +92,6 @@ class LimitStatesDesign:
 
 # tests
 def main():
-    """Série de tests pour les fonctions du fichier."""
-
     dead = LimitStatesDesign(dead=1).elu()
     res = 1.4
     if dead != res:
