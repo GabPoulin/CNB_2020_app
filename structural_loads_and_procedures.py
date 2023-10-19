@@ -22,7 +22,7 @@ class LimitStatesDesign:
     car_access: bool = False
 
     def elu(self, counter_d=False, liquid_l=False, h_s=0):
-        """Calcul ELU selon CNB-2020: Tableau 4.1.3.2.-A.
+        """4.1.3.2. Résistance et stabilité.
 
         Args:
             counter_d (optional): Charge permanente pondérée contraire. Defaults to False.
@@ -44,6 +44,15 @@ class LimitStatesDesign:
         s5 = 0.25
 
         # 4.1.3.2.
+        # 9) & 8)
+        if h_s > 0:
+            d1 = 1.5
+            d_ = 1.5
+            if h_s > 1.2:
+                d_ = max(1 + 0.6 / h_s, 1.25)
+        # 5)
+        if counter_d:
+            d_ = 0.9
         # 6)
         if liquid_l:
             l2 = 1.25
@@ -52,17 +61,9 @@ class LimitStatesDesign:
             l3 += 0.5
             l4 += 0.5
             l5 += 0.5
-        # 8) & 9)
-        if h_s > 0:
-            d_ = 1.5
-            if h_s > 1.2:
-                d_ = max(1 + 0.6 / h_s, 1.25)
-            d1 = 1.5
-        # 5)
-        if counter_d:
-            d_ = 0.9
 
         # 4.1.5.5.
+        # 2)
         if self.exterior_area:
             # 3)
             if not self.car_access:
@@ -72,10 +73,11 @@ class LimitStatesDesign:
                     l5 = 0
                 else:
                     s5 = 0
-            # 4) a)
-            s2 = 0.2
-            s4 = 0.2
-            s5 = 0.2
+            # 4)
+            else:
+                s2 = 0.2
+                s4 = 0.2
+                s5 = 0.2
 
         # Combinaisons de charges (Tableau 4.1.3.2.-A)
         c_1 = d1 * self.dead
