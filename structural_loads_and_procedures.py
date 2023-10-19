@@ -10,7 +10,7 @@ from dataclasses import dataclass
 
 @dataclass
 class LimitStatesDesign:
-    """Calcul ELU ou ELTS selon CNB-2020: section 4.1.3."""
+    """4.1.3. Calcul aux états limites."""
 
     dead: int | float = 0
     live: int | float = 0
