@@ -1,5 +1,4 @@
 """
-Script pour effectuer les calculs selon la section
 4.1. Charges et methodes de calculs du CNB2020.
 
 Auteur: GabPoulin
