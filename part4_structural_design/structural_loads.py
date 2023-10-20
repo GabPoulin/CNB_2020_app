@@ -1,5 +1,5 @@
 """
-4.1. Charges et methodes de calculs du CNB2020.
+4.1. Charges et methodes de calculs.
 
 Auteur: GabPoulin
 email: poulin33@me.com
