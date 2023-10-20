@@ -63,8 +63,9 @@ def tests():
 
 ### RUN FILE ###
 if __name__ == "__main__":
-    print("\n------START_TESTS------")
-    tests()
-    print("-------END_TESTS-------\n")
+    # print("\n------START_TESTS------")
+    # tests()
+    # print("-------END_TESTS-------\n")
+    pass
 
 ### END ###
