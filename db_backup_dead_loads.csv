@@ -1,0 +1,266 @@
+category,material,load,unit,reference
+Bois de sciage,Douglas-mélèze 12%,5100.0,N/m3,MCCB-2021 Tableau 11.25
+Bois de sciage,Douglas-mélèze 15%,5200.0,N/m3,MCCB-2021 Tableau 11.25
+Bois de sciage,Douglas-mélèze 19%,5300.0,N/m3,MCCB-2021 Tableau 11.25
+Bois de sciage,Douglas-mélèze 30%,5500.0,N/m3,MCCB-2021 Tableau 11.25
+Bois de sciage,Pruche-sapin 12%,4800.0,N/m3,MCCB-2021 Tableau 11.25
+Bois de sciage,Pruche-sapin 15%,4900.0,N/m3,MCCB-2021 Tableau 11.25
+Bois de sciage,Pruche-sapin 19%,5000.0,N/m3,MCCB-2021 Tableau 11.25
+Bois de sciage,Pruche-sapin 30%,5200.0,N/m3,MCCB-2021 Tableau 11.25
+Bois de sciage,Épinette-pin-sapin 12%,4400.0,N/m3,MCCB-2021 Tableau 11.25
+Bois de sciage,Épinette-pin-sapin 15%,4500.0,N/m3,MCCB-2021 Tableau 11.25
+Bois de sciage,Épinette-pin-sapin 19%,4600.0,N/m3,MCCB-2021 Tableau 11.25
+Bois de sciage,Épinette-pin-sapin 30%,4800.0,N/m3,MCCB-2021 Tableau 11.25
+Bois de sciage,Essences Nordiques 12%,3700.0,N/m3,MCCB-2021 Tableau 11.25
+Bois de sciage,Essences Nordiques 15%,3800.0,N/m3,MCCB-2021 Tableau 11.25
+Bois de sciage,Essences Nordiques 19%,3900.0,N/m3,MCCB-2021 Tableau 11.25
+Bois de sciage,Essences Nordiques 30%,4100.0,N/m3,MCCB-2021 Tableau 11.25
+Bois de sciage,MSR É-P-S 2400-3100 12%,4400.0,N/m3,MCCB-2021 Tableau 11.25
+Bois de sciage,MSR É-P-S 2400-3100 15%,4500.0,N/m3,MCCB-2021 Tableau 11.25
+Bois de sciage,MSR É-P-S 2400-3100 19%,4600.0,N/m3,MCCB-2021 Tableau 11.25
+Bois de sciage,MSR É-P-S 2400-3100 30%,4800.0,N/m3,MCCB-2021 Tableau 11.25
+Bois de sciage,MSR É-P-S 3800-6500 12%,5200.0,N/m3,MCCB-2021 Tableau 11.25
+Bois de sciage,MSR É-P-S 3800-6500 15%,5300.0,N/m3,MCCB-2021 Tableau 11.25
+Bois de sciage,MSR É-P-S 3800-6500 19%,5400.0,N/m3,MCCB-2021 Tableau 11.25
+Bois de sciage,MSR É-P-S 3800-6500 30%,5600.0,N/m3,MCCB-2021 Tableau 11.25
+Lamellé-collé,GL Douglas-mélèze 12%,5100.0,N/m3,MCCB-2021 Tableau 11.25
+Lamellé-collé,GL Douglas-mélèze 15%,5200.0,N/m3,MCCB-2021 Tableau 11.25
+Lamellé-collé,GL Douglas-mélèze 19%,5300.0,N/m3,MCCB-2021 Tableau 11.25
+Lamellé-collé,GL Douglas-mélèze 30%,5500.0,N/m3,MCCB-2021 Tableau 11.25
+Lamellé-collé,GL Pruche-sapin 12%,4600.0,N/m3,MCCB-2021 Tableau 11.25
+Lamellé-collé,GL Pruche-sapin 15%,4700.0,N/m3,MCCB-2021 Tableau 11.25
+Lamellé-collé,GL Pruche-sapin 19%,4800.0,N/m3,MCCB-2021 Tableau 11.25
+Lamellé-collé,GL Pruche-sapin 30%,5000.0,N/m3,MCCB-2021 Tableau 11.25
+Lamellé-croisé,V1 ou E2 12%,5100.0,N/m3,MCCB-2021 Tableau 11.25
+Lamellé-croisé,V1 ou E2 15%,5200.0,N/m3,MCCB-2021 Tableau 11.25
+Lamellé-croisé,V2 ou E1 12%,4400.0,N/m3,MCCB-2021 Tableau 11.25
+Lamellé-croisé,V2 ou E1 15%,4500.0,N/m3,MCCB-2021 Tableau 11.25
+Lamellé-croisé,E3 12%,3700.0,N/m3,MCCB-2021 Tableau 11.25
+Lamellé-croisé,E3 15%,3800.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Cèdre blanc de l'est 12%,3300.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Cèdre blanc de l'est 15%,3400.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Cèdre blanc de l'est 19%,3400.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Cèdre blanc de l'est 30%,3600.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Cèdre rouge de l'ouest 12%,3600.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Cèdre rouge de l'ouest 15%,3700.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Cèdre rouge de l'ouest 19%,3700.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Cèdre rouge de l'ouest 30%,4000.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Sapin Amabilis 12%,4300.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Sapin Amabilis 15%,4400.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Sapin Amabilis 19%,4500.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Sapin Amabilis 30%,4700.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Sapin Baumier 12%,3900.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Sapin Baumier 15%,4000.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Sapin Baumier 19%,4100.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Sapin Baumier 30%,4300.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Pruche de l'est 12%,4700.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Pruche de l'est 15%,4800.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Pruche de l'est 19%,4900.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Pruche de l'est 30%,5100.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Pruche de l'ouest 12%,4900.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Pruche de l'ouest 15%,5000.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Pruche de l'ouest 19%,5100.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Pruche de l'ouest 30%,5300.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Mélèze de l'ouest 12%,6600.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Mélèze de l'ouest 15%,6600.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Mélèze de l'ouest 19%,6700.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Mélèze de l'ouest 30%,7000.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Pin gris 12%,4700.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Pin gris 15%,4800.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Pin gris 19%,4900.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Pin gris 30%,5100.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Pin tordu 12%,4800.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Pin tordu 15%,4900.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Pin tordu 19%,5000.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Pin tordu 30%,5200.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Pin ponderosa 12%,5100.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Pin ponderosa 15%,5200.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Pin ponderosa 19%,5300.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Pin ponderosa 30%,5500.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Pin rouge 12%,4400.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Pin rouge 15%,4500.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Pin rouge 19%,4600.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Pin rouge 30%,4800.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Pin blanc de l'est 12%,4000.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Pin blanc de l'est 15%,4100.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Pin blanc de l'est 19%,4200.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Pin blanc de l'est 30%,4400.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Pin blanc de l'ouest 12%,4200.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Pin blanc de l'ouest 15%,4300.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Pin blanc de l'ouest 19%,4400.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Pin blanc de l'ouest 30%,4600.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Épinette noir 12%,4700.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Épinette noir 15%,4800.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Épinette noir 19%,4900.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Épinette noir 30%,5100.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Épinette blanche Sitka 12%,4100.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Épinette blanche Sitka 15%,4200.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Épinette blanche Sitka 19%,4300.0,N/m3,MCCB-2021 Tableau 11.25
+Bois résineux,Épinette blanche Sitka 30%,4500.0,N/m3,MCCB-2021 Tableau 11.25
+Bois feuillus,Bouleau jaune 12%,6700.0,N/m3,MCCB-2021 Tableau 11.25
+Bois feuillus,Bouleau jaune 15%,6700.0,N/m3,MCCB-2021 Tableau 11.25
+Bois feuillus,Bouleau jaune 19%,6800.0,N/m3,MCCB-2021 Tableau 11.25
+Bois feuillus,Bouleau jaune 30%,7000.0,N/m3,MCCB-2021 Tableau 11.25
+Bois feuillus,Érable à sucre 12%,7100.0,N/m3,MCCB-2021 Tableau 11.25
+Bois feuillus,Érable à sucre 15%,7200.0,N/m3,MCCB-2021 Tableau 11.25
+Bois feuillus,Érable à sucre 19%,7300.0,N/m3,MCCB-2021 Tableau 11.25
+Bois feuillus,Érable à sucre 30%,7500.0,N/m3,MCCB-2021 Tableau 11.25
+Bois feuillus,Érable argenté 12%,5300.0,N/m3,MCCB-2021 Tableau 11.25
+Bois feuillus,Érable argenté 15%,5400.0,N/m3,MCCB-2021 Tableau 11.25
+Bois feuillus,Érable argenté 19%,5500.0,N/m3,MCCB-2021 Tableau 11.25
+Bois feuillus,Érable argenté 30%,5700.0,N/m3,MCCB-2021 Tableau 11.25
+Bois feuillus,Chêne rouge 12%,6800.0,N/m3,MCCB-2021 Tableau 11.25
+Bois feuillus,Chêne rouge 15%,6800.0,N/m3,MCCB-2021 Tableau 11.25
+Bois feuillus,Chêne rouge 19%,6900.0,N/m3,MCCB-2021 Tableau 11.25
+Bois feuillus,Chêne rouge 30%,7100.0,N/m3,MCCB-2021 Tableau 11.25
+Bois feuillus,Chêne blanc 12%,7900.0,N/m3,MCCB-2021 Tableau 11.25
+Bois feuillus,Chêne blanc 15%,8000.0,N/m3,MCCB-2021 Tableau 11.25
+Bois feuillus,Chêne blanc 19%,8000.0,N/m3,MCCB-2021 Tableau 11.25
+Bois feuillus,Chêne blanc 30%,8200.0,N/m3,MCCB-2021 Tableau 11.25
+Métaux et alliages,Aluminium coulé martelé,25900.0,N/m3,MCCB-2021 Tableau 11.26
+Métaux et alliages,Laiton coulé laminé,83900.0,N/m3,MCCB-2021 Tableau 11.26
+Métaux et alliages,Cuivre,87300.0,N/m3,MCCB-2021 Tableau 11.26
+Métaux et alliages,Fer coulé en gueuses,70700.0,N/m3,MCCB-2021 Tableau 11.26
+Métaux et alliages,Fer malléable,76200.0,N/m3,MCCB-2021 Tableau 11.26
+Métaux et alliages,Plomb,111500.0,N/m3,MCCB-2021 Tableau 11.26
+Métaux et alliages,Acier laminé,77000.0,N/m3,MCCB-2021 Tableau 11.26
+Liquides,Essence,6600.0,N/m3,MCCB-2021 Tableau 11.26
+Liquides,Huiles,9000.0,N/m3,MCCB-2021 Tableau 11.26
+Liquides,Eau douce,9800.0,N/m3,MCCB-2021 Tableau 11.26
+Liquides,Glace,8800.0,N/m3,MCCB-2021 Tableau 11.26
+Liquides,Eau de mer,10000.0,N/m3,MCCB-2021 Tableau 11.26
+Sols excavés,Sol humide,15700.0,N/m3,MCCB-2021 Tableau 11.26
+Sols excavés,Sol sec,11800.0,N/m3,MCCB-2021 Tableau 11.26
+Sols excavés,Sable et gravier humides,18900.0,N/m3,MCCB-2021 Tableau 11.26
+Sols excavés,Sable et gravier secs,16500.0,N/m3,MCCB-2021 Tableau 11.26
+Maçonnerie,Béton de cendre de remplissage,9400.0,N/m3,MCCB-2021 Tableau 11.26
+Maçonnerie,Béton de cendre,15800.0,N/m3,MCCB-2021 Tableau 11.26
+Maçonnerie,Béton de laitier,20400.0,N/m3,MCCB-2021 Tableau 11.26
+Maçonnerie,Béton,22600.0,N/m3,MCCB-2021 Tableau 11.26
+Maçonnerie,Béton armé,23600.0,N/m3,MCCB-2021 Tableau 11.26
+Maçonnerie,Brique tendre,17300.0,N/m3,MCCB-2021 Tableau 11.26
+Maçonnerie,Brique ordinaire,19600.0,N/m3,MCCB-2021 Tableau 11.26
+Maçonnerie,Brique dense,22000.0,N/m3,MCCB-2021 Tableau 11.26
+Autres solides,Asphalte bitume,12700.0,N/m3,MCCB-2021 Tableau 11.26
+Autres solides,Brai,10800.0,N/m3,MCCB-2021 Tableau 11.26
+Autres solides,Goudron de bitume,11800.0,N/m3,MCCB-2021 Tableau 11.26
+Autres solides,Verre ordinaire,24500.0,N/m3,MCCB-2021 Tableau 11.26
+Autres solides,Verre plat crown glass,25300.0,N/m3,MCCB-2021 Tableau 11.26
+Autres solides,Papier,9000.0,N/m3,MCCB-2021 Tableau 11.26
+Autres solides,Blé grains,7500.0,N/m3,MCCB-2021 Tableau 11.26
+Autres solides,Orge grains,6000.0,N/m3,MCCB-2021 Tableau 11.26
+Revêtements de plancher,Bois de feuillus 20mm,190.0,N/m2,MCCB-2021 Tableau 11.26
+Revêtements de plancher,Carreaux de vinyle 3mm,70.0,N/m2,MCCB-2021 Tableau 11.26
+Revêtements de plancher,Carreaux de liège 2mm,20.0,N/m2,MCCB-2021 Tableau 11.26
+Revêtements de plancher,Carreaux de caoutchouc ou d'asphalte 5mm,100.0,N/m2,MCCB-2021 Tableau 11.26
+Revêtements de plancher,Carreaux de céramiques ou de carrière 20mm,530.0,N/m2,MCCB-2021 Tableau 11.26
+Revêtements de plancher,Moquettes,100.0,N/m2,MCCB-2021 Tableau 11.26
+Revêtements de plancher,Terrazzo 25mm,900.0,N/m2,MCCB-2021 Tableau 11.26
+Revêtements de plancher,Base de mortier 25mm,480.0,N/m2,MCCB-2021 Tableau 11.26
+Revêtements de plancher,Base de mastic 25mm,380.0,N/m2,MCCB-2021 Tableau 11.26
+Revêtements de plancher,Blocs de bois traité 25mm,190.0,N/m2,MCCB-2021 Tableau 11.26
+Revêtements de toiture,Feutre et gravillons 3plis,260.0,N/m2,MCCB-2021 Tableau 11.26
+Revêtements de toiture,Feutre et gravillons 4plis,290.0,N/m2,MCCB-2021 Tableau 11.26
+Revêtements de toiture,Feutre et gravillons 5plis,310.0,N/m2,MCCB-2021 Tableau 11.26
+Revêtements de toiture,Feutre sans gravillons 3plis,140.0,N/m2,MCCB-2021 Tableau 11.26
+Revêtements de toiture,Feutre sans gravillons 4plis,170.0,N/m2,MCCB-2021 Tableau 11.26
+Revêtements de toiture,Feutre sans gravillons 5plis,190.0,N/m2,MCCB-2021 Tableau 11.26
+Revêtements de toiture,Toiture en rouleaux,50.0,N/m2,MCCB-2021 Tableau 11.26
+Revêtements de toiture,Bardeaux de cèdre,100.0,N/m2,MCCB-2021 Tableau 11.26
+Revêtements de toiture,Bardeaux d'amiante,134.0,N/m2,MCCB-2021 Tableau 11.26
+Revêtements de toiture,Bardeaux d'asphalte,120.0,N/m2,MCCB-2021 Tableau 11.26
+Revêtements de toiture,Ardoises 6mm,450.0,N/m2,MCCB-2021 Tableau 11.26
+Revêtements de toiture,Carreaux d'argile ou tuiles,670.0,N/m2,MCCB-2021 Tableau 11.26
+Revêtements de toiture,Membrane caoutchoutée,20.0,N/m2,MCCB-2021 Tableau 11.26
+Revêtements de toiture,Acier ondulé 1.5mm calibre 16,160.0,N/m2,MCCB-2021 Tableau 11.26
+Revêtements de toiture,Acier ondulé 0.9mm calibre 20,100.0,N/m2,MCCB-2021 Tableau 11.26
+Revêtements de toiture,Acier ondulé 0.6mm calibre 24,70.0,N/m2,MCCB-2021 Tableau 11.26
+Revêtements de toiture,Toit caverneux Turnall,530.0,N/m2,MCCB-2021 Tableau 11.26
+Revêtements de toiture,Aluminium 0.6mm calibre 24,20.0,N/m2,MCCB-2021 Tableau 11.26
+Revêtements muraux,Marbre,720.0,N/m2,MCCB-2021 Tableau 11.26
+Revêtements muraux,Stuc,480.0,N/m2,MCCB-2021 Tableau 11.26
+Revêtements muraux,Carreaux vitrifiés,860.0,N/m2,MCCB-2021 Tableau 11.26
+Revêtements muraux,Panneaux de particules 6mm,40.0,N/m2,MCCB-2021 Tableau 11.26
+Isolants,Isolant en vrac,0.5,N/m2/mm,MCCB-2021 Tableau 11.26
+Isolants,Vermiculite verre poreux,4.0,N/m2/mm,MCCB-2021 Tableau 11.26
+Isolants,Nattes de laine minérale,0.2,N/m2/mm,MCCB-2021 Tableau 11.26
+Isolants,Nattes de fibres de verre,0.2,N/m2/mm,MCCB-2021 Tableau 11.26
+Isolants,Feuilles de fibres de verre,2.8,N/m2/mm,MCCB-2021 Tableau 11.26
+Isolants,Panneaux de fibres Donnacona Tentest,3.0,N/m2/mm,MCCB-2021 Tableau 11.26
+Isolants,Panneaux de liège,1.5,N/m2/mm,MCCB-2021 Tableau 11.26
+Isolants,Isolant giclé pulvérisé,2.0,N/m2/mm,MCCB-2021 Tableau 11.26
+Isolants,Mousse rigide Styrofoam,0.4,N/m2/mm,MCCB-2021 Tableau 11.26
+Isolants,Dyfoam,0.6,N/m2/mm,MCCB-2021 Tableau 11.26
+Murs,Brique,17.7,N/m2/mm,MCCB-2021 Tableau 11.26
+Murs,Blocs de verre,9.6,N/m2/mm,MCCB-2021 Tableau 11.26
+Murs,Blocs de gypse caverneux,6.2,N/m2/mm,MCCB-2021 Tableau 11.26
+Murs,Blocs de béton,14.4,N/m2/mm,MCCB-2021 Tableau 11.26
+Murs,Blocs de béton de cendre,9.6,N/m2/mm,MCCB-2021 Tableau 11.26
+Murs,Blocs de haydite,10.5,N/m2/mm,MCCB-2021 Tableau 11.26
+Murs,Pierre calcaire,26.3,N/m2/mm,MCCB-2021 Tableau 11.26
+Murs,Blocs d'argile caverneux non porteurs,8.6,N/m2/mm,MCCB-2021 Tableau 11.26
+Murs,Blocs d'argile caverneux porteurs,11.0,N/m2/mm,MCCB-2021 Tableau 11.26
+Murs,Blocs de terre cuite terra cotta,1.2,N/m2/mm,MCCB-2021 Tableau 11.26
+Murs,Pierre,2.7,N/m2/mm,MCCB-2021 Tableau 11.26
+Cloisons et plafonds,Liens continus,20.0,N/m2,MCCB-2021 Tableau 11.26
+Cloisons et plafonds,Colombages,70.0,N/m2,MCCB-2021 Tableau 11.26
+Cloisons et plafonds,Lattis de bois ou de métal,100.0,N/m2,MCCB-2021 Tableau 11.26
+Cloisons et plafonds,Plâtre,15.0,N/m2/mm,MCCB-2021 Tableau 11.26
+Cloisons et plafonds,Plâtre léger,10.0,N/m2/mm,MCCB-2021 Tableau 11.26
+Cloisons et plafonds,Panneau plâtre 12mm,100.0,N/m2,MCCB-2021 Tableau 11.26
+Cloisons et plafonds,Carreaux acoustiques 12mm,40.0,N/m2,MCCB-2021 Tableau 11.26
+Cloisons et plafonds,Carreaux d'argile,8.6,N/m2/mm,MCCB-2021 Tableau 11.26
+Cloisons et plafonds,Blocs de gypse,6.2,N/m2/mm,MCCB-2021 Tableau 11.26
+Cloisons et plafonds,Panneau de gypse 12mm,100.0,N/m2,MCCB-2021 Tableau 11.26
+Cloisons et plafonds,Tectum,4.0,N/m2/mm,MCCB-2021 Tableau 11.26
+Divers,Dalle en porete,13.0,N/m2/mm,MCCB-2021 Tableau 11.26
+Divers,Dalle en haydite,19.0,N/m2/mm,MCCB-2021 Tableau 11.26
+Divers,Dalle en aerocrete,9.0,N/m2/mm,MCCB-2021 Tableau 11.26
+Divers,Madriers de toit Durisol,11.0,N/m2/mm,MCCB-2021 Tableau 11.26
+Divers,Feuille de plastique 6mm,70.0,N/m2,MCCB-2021 Tableau 11.26
+Divers,Lanterneaux,580.0,N/m2,MCCB-2021 Tableau 11.26
+Divers,Fenêtres en bois,240.0,N/m2,MCCB-2021 Tableau 11.26
+Divers,Fenêtres en acier,380.0,N/m2,MCCB-2021 Tableau 11.26
+Divers,Tuiles Trafford 7mm,170.0,N/m2,MCCB-2021 Tableau 11.26
+Divers,Amiante ondulée 6mm,160.0,N/m2,MCCB-2021 Tableau 11.26
+Divers,Densite 6mm,120.0,N/m2,MCCB-2021 Tableau 11.26
+Divers,Verre simple,60.0,N/m2,MCCB-2021 Tableau 11.26
+Divers,Verre double,80.0,N/m2,MCCB-2021 Tableau 11.26
+Divers,Verre 6mm,160.0,N/m2,MCCB-2021 Tableau 11.26
+Divers,Siporex 6mm,6.0,N/m2,MCCB-2021 Tableau 11.26
+Divers,Stramit 50mm,90.0,N/m2,MCCB-2021 Tableau 11.26
+Solives de bois,2x4 à 12po,60.0,N/m2,MCCB-2021 Tableau 11.27
+Solives de bois,2x4 à 16po,50.0,N/m2,MCCB-2021 Tableau 11.27
+Solives de bois,2x4 à 20po,40.0,N/m2,MCCB-2021 Tableau 11.27
+Solives de bois,2x4 à 24po,30.0,N/m2,MCCB-2021 Tableau 11.27
+Solives de bois,2x6 à 12po,90.0,N/m2,MCCB-2021 Tableau 11.27
+Solives de bois,2x6 à 16po,70.0,N/m2,MCCB-2021 Tableau 11.27
+Solives de bois,2x6 à 20po,60.0,N/m2,MCCB-2021 Tableau 11.27
+Solives de bois,2x6 à 24po,50.0,N/m2,MCCB-2021 Tableau 11.27
+Solives de bois,2x8 à 12po,120.0,N/m2,MCCB-2021 Tableau 11.27
+Solives de bois,2x8 à 16po,90.0,N/m2,MCCB-2021 Tableau 11.27
+Solives de bois,2x8 à 20po,80.0,N/m2,MCCB-2021 Tableau 11.27
+Solives de bois,2x8 à 24po,60.0,N/m2,MCCB-2021 Tableau 11.27
+Solives de bois,2x10 à 12po,160.0,N/m2,MCCB-2021 Tableau 11.27
+Solives de bois,2x10 à 16po,120.0,N/m2,MCCB-2021 Tableau 11.27
+Solives de bois,2x10 à 20po,100.0,N/m2,MCCB-2021 Tableau 11.27
+Solives de bois,2x10 à 24po,80.0,N/m2,MCCB-2021 Tableau 11.27
+Solives de bois,2x12 à 12po,200.0,N/m2,MCCB-2021 Tableau 11.27
+Solives de bois,2x12 à 16po,140.0,N/m2,MCCB-2021 Tableau 11.27
+Solives de bois,2x12 à 20po,120.0,N/m2,MCCB-2021 Tableau 11.27
+Solives de bois,2x12 à 24po,100.0,N/m2,MCCB-2021 Tableau 11.27
+Revêtement,Cèdre 19mm,70.0,N/m2,MCCB-2021 Tableau 11.28
+Revêtement,É-P-S 19mm,80.0,N/m2,MCCB-2021 Tableau 11.28
+Revêtement,Douglas-mélèze 19mm,100.0,N/m2,MCCB-2021 Tableau 11.28
+Platelage,Cèdre 38mm,130.0,N/m2,MCCB-2021 Tableau 11.28
+Platelage,É-P-S 38mm,170.0,N/m2,MCCB-2021 Tableau 11.28
+Platelage,Douglas-mélèze 38mm,200.0,N/m2,MCCB-2021 Tableau 11.28
+Platelage,Cèdre 64mm,220.0,N/m2,MCCB-2021 Tableau 11.28
+Platelage,É-P-S 64mm,280.0,N/m2,MCCB-2021 Tableau 11.28
+Platelage,Douglas-mélèze 64mm,340.0,N/m2,MCCB-2021 Tableau 11.28
+Platelage,Cèdre 89mm,310.0,N/m2,MCCB-2021 Tableau 11.28
+Platelage,É-P-S 89mm,390.0,N/m2,MCCB-2021 Tableau 11.28
+Platelage,Douglas-mélèze 89mm,480.0,N/m2,MCCB-2021 Tableau 11.28
+Panneau,Contreplaqué,5.0,N/m2/mm,MCCB-2021 Tableau 11.28
+Panneau,OSB,7.0,N/m2/mm,MCCB-2021 Tableau 11.28
+Panneau,Panneaux de particules,7.0,N/m2/mm,MCCB-2021 Tableau 11.28

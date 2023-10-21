@@ -17,6 +17,34 @@ ________________________________________________________________________________
 """
 
 ### IMPORTS ###
+from dataclasses import dataclass
+from sqlalchemy.orm import sessionmaker
+
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import create_engine, Column, TEXT, REAL
+
+
+### DB MANAGEMENT ###
+Base = declarative_base()
+
+
+@dataclass
+class DeadLoadsData(Base):
+    """Fait référence à la table dead_loads de loads.db."""
+
+    __tablename__ = "dead_loads"
+    category: str = Column("category", TEXT)
+    material: str = Column("material", TEXT, primary_key=True)
+    load: str = Column("load", REAL)
+    unit: str = Column("unit", TEXT)
+    reference: str = Column("reference", TEXT)
+
+
+engine = create_engine("sqlite:///loads.db")
+Base.metadata.create_all(bind=engine)
+
+Session = sessionmaker(bind=engine)
+session = Session()
 
 
 ### CODE ###
