@@ -6,7 +6,7 @@ Section 4.1. Charges et méthodes de calcul.
 
 4.1.3. Charge permanente.
 
-Permet de ...
+
 ____________________________________________________________________________________________________
     
 
@@ -20,16 +20,31 @@ ________________________________________________________________________________
 from dataclasses import dataclass
 
 
+### DB MANAGEMENT ###
+
+
 ### CODE ###
-@dataclass
 class DeadLoads:
     """4.1.4. Charge permanente.
 
     Args:
-        partitions (optional): Poids des cloisons. Defaults to False.
+        weight (list, optional): poids de tous les matériaux de construction incorporés au bâtiment
+        et destinés à être supportés de façon permanente par l'élément.
+        partitions (bool, optional): Poids des cloisons. Defaults to False.
     """
 
-    partitions: bool = False
+    def __init__(self, *material, add_partitions=False):
+        self.material = material
+        self.partitions = add_partitions
+
+    def calculate(self):
+        dead_loads = 0
+        if self.partitions:
+            dead_loads += 1
+        for d in self.material:
+            dead_loads += d
+
+        return dead_loads
 
 
 ### TESTS ###
@@ -37,9 +52,9 @@ def tests():
     """tests pour la classe DeadLoads"""
     print("")
 
-    test = DeadLoads()
-    expected_result = False
-    if test.partitions != expected_result:
+    test = DeadLoads(1, 2, 3, True).calculate()
+    expected_result = 7
+    if test != expected_result:
         print("test -> FAILED")
         print(f"result = {test}")
         print(f"expected = {expected_result}\n")

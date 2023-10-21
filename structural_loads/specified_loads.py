@@ -6,7 +6,6 @@ Section 4.1. Charges et méthodes de calcul.
 
 4.1.2. Charges spécifiées et leurs effets.
 
-Permet de spécifier les charges selon les catégories suivantes:
     D -> Charge permanente | charge constante exercée par le poids des composants du bâtiment;
     L -> Surcharge | charge variable due à l'usage prévu (y compris les charges dues aux ponts
          roulants et à la pression des liquides dans les récipients);   
@@ -63,9 +62,9 @@ def tests():
 
 ### RUN FILE ###
 if __name__ == "__main__":
-    # print("\n------START_TESTS------")
-    # tests()
-    # print("-------END_TESTS-------\n")
-    pass
+    print("\n------START_TESTS------")
+    tests()
+    print("-------END_TESTS-------\n")
+    # pass
 
 ### END ###

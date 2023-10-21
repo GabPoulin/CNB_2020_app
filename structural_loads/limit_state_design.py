@@ -6,8 +6,8 @@ Section 4.1. Charges et méthodes de calcul.
 
 4.1.3. Calcul aux états limites.
 
-Effectue le calcul en fonction des charges spécifiées et des conditions d'application des charges.
-Permet d'obtenir ELU et ELTS.
+Effectue le calcul pour ELU et ELTS en fonction des charges spécifiées et des conditions
+d'application des charges.
 ____________________________________________________________________________________________________
 
     auteur: GabPoulin
