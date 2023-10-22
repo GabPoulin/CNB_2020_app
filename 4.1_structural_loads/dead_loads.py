@@ -19,7 +19,6 @@ ________________________________________________________________________________
 
 ### IMPORTS ###
 from dataclasses import dataclass
-from simple_colors import *
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine, Column, TEXT, REAL
@@ -58,7 +57,7 @@ class DeadLoads:
         """Calcul la charge totale des matériaux.
 
         Args:
-            print_table: Affiche un tableau des charges avec le poids chaque matériau.
+            print_table: Crée un tableau des charges avec le poids chaque matériau.
                 Defaults to False.
 
         Returns:
@@ -85,23 +84,21 @@ class DeadLoads:
 
             if print_table:
                 if unit in ("N/m3", "N/m2/mm"):
-                    table += (
-                        f"\n{mat.material} {int(thickness)}mm ---- {round(load,2)} kPa"
-                    )
+                    table += f"{mat.material} {int(thickness)}mm|{round(load,2)} kPa\n"
                 else:
-                    table += f"\n{mat.material} ---- {round(load,2)} kPa"
+                    table += f"{mat.material}|{round(load,2)} kPa\n"
 
             total += load
         total = round(total, 2)
 
         if print_table:
-            print()
-            print(cyan("Charges permanentes:"))
-            print("============================================================", table)
-            print("============================================================")
-            print("Total:", cyan(f"{total} kPa"))
-            print("============================================================")
-            print()
+            with open(file="materials_loads.md", mode="w", encoding="utf-8") as md_file:
+                md_file.write(
+                    "___Matériau___|___Masse___\n"
+                    + "-|-\n"
+                    + table
+                    + f"__Total__:|__{total}__ __kPa__\n"
+                )
 
         return total
 
@@ -145,28 +142,37 @@ def tests():
     test = DeadLoads(liste1).sum_dead_loads(True, 2)
     expected_result = 3.51
     if test != expected_result:
-        print("DeadLoads.sum_dead_loads ->", red("FAILED"))
+        print("DeadLoads.sum_dead_loads -> FAILED")
         print("result = ", test)
         print("expected = ", expected_result)
         print()
     else:
-        print("DeadLoads.sum_dead_loads ->", green("GOOD"))
+        print("DeadLoads.sum_dead_loads -> GOOD")
         print()
 
     test2 = DeadLoads(liste1).sum_materials_loads(False)
     expected_result = 0.51
     if test2 != expected_result:
-        print("DeadLoads.sum_materials_loads ->", red("FAILED"))
+        print("DeadLoads.sum_materials_loads -> FAILED")
         print("result = ", test2)
         print("expected = ", expected_result)
         print()
     else:
-        print("DeadLoads.sum_materials_loads ->", green("GOOD"))
+        print("DeadLoads.sum_materials_loads -> GOOD")
         print()
 
-    DeadLoads(["Bois de feuillus 20mm", "Béton", "Contreplaqué"]).sum_materials_loads(
-        True
-    )
+    toiture = [
+        "Bardeaux d'asphalte",
+        "Membrane caoutchoutée",
+        "Contreplaqué",
+        "2x6 à 24po",
+        "2x4 à 24po",
+        "2x8 à 24po",
+        "Isolant en vrac",
+        "Liens continus",
+        "Panneau de gypse 12mm",
+    ]
+    DeadLoads(toiture).sum_materials_loads(True)
 
 
 ### RUN FILE ###
