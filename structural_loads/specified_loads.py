@@ -71,8 +71,8 @@ def tests():
         print("testlive -> PASSED\n")
 
     floor = ["Moquettes"]
-    testdead = SpecifiedLoads(DeadLoads(floor).sum_dead_loads(True))
-    expected_result = 1.1
+    testdead = SpecifiedLoads(DeadLoads(floor).sum_dead_loads(True, 0.9))
+    expected_result = 2
     if testdead.dead != expected_result:
         print("testdead -> FAILED")
         print(f"result = {testdead}")
