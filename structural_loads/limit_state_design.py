@@ -6,8 +6,8 @@ Section 4.1. Charges et méthodes de calcul.
 
 4.1.3. Calcul aux états limites.
 
-Effectue le calcul pour ELU et ELTS en fonction des charges spécifiées et des conditions
-d'application des charges.
+    Effectue le calcul pour ELU et ELTS en fonction des charges spécifiées et des conditions
+    d'application des charges.
 ____________________________________________________________________________________________________
 
     auteur: GabPoulin
@@ -28,9 +28,12 @@ class LimitStatesDesign:
         """4.1.3. Calcul aux états limites.
 
         Args:
-            loads (optional): Defaults to SpecifiedLoads.
-            storage_area (optional): Aires de stockage. Defaults to False.
+            loads: Defaults to SpecifiedLoads.
+
+            storage_area: Aires de stockage.
+                Defaults to False.
         """
+
         self.dead = loads.dead
         self.live = loads.live
         self.snow = loads.snow
@@ -49,11 +52,20 @@ class LimitStatesDesign:
         """4.1.3.2. Résistance et stabilité.
 
         Args:
-            h_s (optional): Profondeur du sol, en m, supporté par la structure. Defaults to 0.
-            counter_d (optional): Charge permanente pondérée contraire. Defaults to False.
-            liquid_l (optional): Liquides contenus dans des réservoirs. Defaults to False.
-            exterior_area (optional): Toits ou aires extérieures. Defaults to False.
-            car_access (optional): Accessible aux véhicules. Defaults to False.
+            h_s: Profondeur du sol, en m, supporté par la structure.
+                Defaults to 0.
+
+            counter_d: Charge permanente pondérée contraire.
+                Defaults to False.
+
+            liquid_l: Liquides contenus dans des réservoirs.
+                Defaults to False.
+
+            exterior_area: Toits ou aires extérieures.
+                Defaults to False.
+
+            car_access: Accessible aux véhicules.
+                Defaults to False.
 
         Returns:
             float: État limite ultime
@@ -201,10 +213,9 @@ def sls_tests():
 
 ### RUN FILE ###
 if __name__ == "__main__":
-    # print("\n------START_TESTS------")
-    # uls_tests()
-    # sls_tests()
-    # print("-------END_TESTS-------\n")
-    pass
+    print("\n------START_TESTS------")
+    uls_tests()
+    sls_tests()
+    print("-------END_TESTS-------\n")
 
 ### END ###

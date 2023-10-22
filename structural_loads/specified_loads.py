@@ -23,6 +23,7 @@ ________________________________________________________________________________
 
 ### IMPORTS ###
 from dataclasses import dataclass
+from dead_loads import DeadLoads
 
 
 ### CODE ###
@@ -31,11 +32,21 @@ class SpecifiedLoads:
     """4.1.2. Charges spécifiées.
 
     Args:
-        dead (optional): Charge permanente (D). Defaults to 0.
-        live (optional): Surcharge due à l'usage (L). Defaults to 0.
-        snow (optional): Charge due à la neige (S). Defaults to 0.
-        wind (optional): Charge due au vent (W). Defaults to 0.
-        earthquake (optional): Charge et effets dus aux séismes (E). Defaults to 0.
+        dead: Charge permanente (D).
+            Defaults to 0.
+
+        live: Surcharge due à l'usage (L).
+            Defaults to 0.
+
+        snow: Charge due à la neige (S).
+            Defaults to 0.
+
+        wind: Charge due au vent (W).
+            Defaults to 0.
+
+        earthquake: Charge et effets dus aux séismes (E).
+            Defaults to 0.
+
     """
 
     dead: int | float = 0
@@ -48,16 +59,26 @@ class SpecifiedLoads:
 ### TESTS ###
 def tests():
     """tests pour la classe SpecifiedLoads"""
-    print("")
+    print()
 
-    test = SpecifiedLoads(dead=0.54)
-    expected_result = 0.54
-    if test.dead != expected_result:
-        print("test -> FAILED")
-        print(f"result = {test}")
+    testlive = SpecifiedLoads(live=1.9)
+    expected_result = 1.9
+    if testlive.live != expected_result:
+        print("testlive -> FAILED")
+        print(f"result = {testlive}")
         print(f"expected = {expected_result}\n")
     else:
-        print("test -> PASSED\n")
+        print("testlive -> PASSED\n")
+
+    floor = ["Moquettes"]
+    testdead = SpecifiedLoads(DeadLoads(floor).sum_dead_loads(True))
+    expected_result = 1.1
+    if testdead.dead != expected_result:
+        print("testdead -> FAILED")
+        print(f"result = {testdead}")
+        print(f"expected = {expected_result}\n")
+    else:
+        print("testdead -> PASSED\n")
 
 
 ### RUN FILE ###
@@ -65,6 +86,5 @@ if __name__ == "__main__":
     print("\n------START_TESTS------")
     tests()
     print("-------END_TESTS-------\n")
-    # pass
 
 ### END ###
