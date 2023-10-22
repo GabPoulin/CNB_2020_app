@@ -18,7 +18,6 @@ ________________________________________________________________________________
 
 ### IMPORTS ###
 from dataclasses import dataclass
-from simple_colors import *
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine, Column, TEXT, REAL
