@@ -29,35 +29,32 @@ from sqlalchemy import create_engine, Column, TEXT, REAL
 class DeadLoadsTable(declarative_base()):
     """Fait référence à la table dead_loads de loads.db."""
 
+    session = sessionmaker(create_engine("sqlite:///loads.db"))()
     __tablename__ = "dead_loads"
-    category: str = Column("category", TEXT)
     material: str = Column("material", TEXT, primary_key=True)
     load: str = Column("load", REAL)
     unit: str = Column("unit", TEXT)
-    reference: str = Column("reference", TEXT)
-
-    engine = create_engine("sqlite:///loads.db")
-    Session = sessionmaker(engine)
-    session = Session()
 
 
 ### CODE ###
 class DeadLoads:
     """4.1.4. Charge permanente."""
 
-    def __init__(self, materials: list[str]):
+    def __init__(self, member_name: str, materials: list[str]):
         """4.1.4. Charge permanente.
 
         Args:
-            materials: Liste des matériaux.
+            member_name (str): Nom de l'élément structural.
+            materials (list[str]): Liste des matériaux qui composent l'élément.
         """
+        self.member_name = member_name
         self.materials = materials
 
-    def sum_materials_loads(self, print_table=False):
+    def member_load(self, print_table=False):
         """Calcul la charge totale des matériaux.
 
         Args:
-            print_table: Crée un tableau des charges avec le poids chaque matériau.
+            print_table (bool): Crée un tableau des charges avec le poids chaque matériau.
                 Defaults to False.
 
         Returns:
@@ -76,7 +73,11 @@ class DeadLoads:
             unit = mat.unit
 
             if unit in ("N/m3", "N/m2/mm"):
-                thickness = float(input(f"Épaisseur pour {mat.material} en mm: "))
+                thickness = float(
+                    input(
+                        f"{self.member_name}: Épaisseur pour {mat.material} en mm -> "
+                    )
+                )
                 load *= thickness
                 if unit == "N/m3":
                     load /= 1000
@@ -92,12 +93,14 @@ class DeadLoads:
         total = round(total, 2)
 
         if print_table:
-            with open(file="materials_loads.md", mode="w", encoding="utf-8") as md_file:
+            with open(file="member_loads.md", mode="a", encoding="utf-8") as md_file:
                 md_file.write(
-                    "___Matériau___|___Masse___\n"
+                    f"## {self.member_name}\n"
+                    + "___Matériau___|___Masse___\n"
                     + "-|-\n"
                     + table
                     + f"__Total__:|__{total}__ __kPa__\n"
+                    + "---"
                 )
 
         return total
@@ -121,7 +124,7 @@ class DeadLoads:
         dead_loads = additional_loads
         if add_partitions:
             dead_loads += 1
-        dead_loads += self.sum_materials_loads()
+        dead_loads += self.member_load()
         dead_loads = round(dead_loads, 2)
 
         return dead_loads
@@ -139,7 +142,7 @@ def tests():
         "Liens continus",
         "Panneau de gypse 12mm",
     ]
-    test = DeadLoads(liste1).sum_dead_loads(True, 2)
+    test = DeadLoads("test1", liste1).sum_dead_loads(True, 2)
     expected_result = 3.51
     if test != expected_result:
         print("DeadLoads.sum_dead_loads -> FAILED")
@@ -150,15 +153,15 @@ def tests():
         print("DeadLoads.sum_dead_loads -> GOOD")
         print()
 
-    test2 = DeadLoads(liste1).sum_materials_loads(False)
+    test2 = DeadLoads("test2", liste1).member_load(False)
     expected_result = 0.51
     if test2 != expected_result:
-        print("DeadLoads.sum_materials_loads -> FAILED")
+        print("DeadLoads.member_load -> FAILED")
         print("result = ", test2)
         print("expected = ", expected_result)
         print()
     else:
-        print("DeadLoads.sum_materials_loads -> GOOD")
+        print("DeadLoads.member_load -> GOOD")
         print()
 
     toiture = [
@@ -172,7 +175,7 @@ def tests():
         "Liens continus",
         "Panneau de gypse 12mm",
     ]
-    DeadLoads(toiture).sum_materials_loads(True)
+    DeadLoads("plancher", toiture).member_load(True)
 
 
 ### RUN FILE ###
@@ -182,5 +185,6 @@ if __name__ == "__main__":
     tests()
     print("-------END_TESTS-------")
     print()
+
 
 ### END ###
