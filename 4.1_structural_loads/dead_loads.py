@@ -6,61 +6,61 @@ Section 4.1. Charges et méthodes de calcul.
 
 4.1.4. Charge permanente.
 
-    Effectue le calcul pour la charge permanente à partir des données de masse de différents
-    matériaux.
+    Effectue le calcul pour la charge permanente à partir du poids de différents matériaux.
 ____________________________________________________________________________________________________
     
-
+    
     auteur: GabPoulin
     email: poulin33@me.com
 
 ====================================================================================================
 """
 
-### IMPORTS ###
+# IMPORTS
 from dataclasses import dataclass
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine, Column, TEXT, REAL
 
 
-### DB MANAGEMENT ###
+# DB CONNECTION
 @dataclass
 class DeadLoadsTable(declarative_base()):
-    """Fait référence à la table dead_loads de loads.db."""
+    """Se connecte à la table dead_loads de loads.db."""
 
-    session = sessionmaker(create_engine("sqlite:///loads.db"))()
     __tablename__ = "dead_loads"
     material: str = Column("material", TEXT, primary_key=True)
     load: str = Column("load", REAL)
     unit: str = Column("unit", TEXT)
+    session = sessionmaker(create_engine("sqlite:///loads.db"))()
 
 
-### CODE ###
+# CODE
 class DeadLoads:
     """4.1.4. Charge permanente."""
 
-    def __init__(self, member_name: str, materials: list[str]):
+    def __init__(
+        self,
+        materials: list[str],
+        member_name: str = "matériaux",
+    ):
         """4.1.4. Charge permanente.
 
         Args:
-            member_name (str): Nom de l'élément structural.
-            materials (list[str]): Liste des matériaux qui composent l'élément.
+            materials: Liste des matériaux qui composent l'élément.
+            member_name: Nom de l'élément structural.
         """
-        self.member_name = member_name
+        self.member_name = member_name.title()
         self.materials = materials
 
     def member_load(self, print_table=False):
-        """Calcul la charge totale des matériaux.
+        """Calcul la poids total des matériaux qui composent l'élément.
 
         Args:
-            print_table (bool): Crée un tableau des charges avec le poids chaque matériau.
-                Defaults to False.
-
+            print_table: Créé un tableau pour indiquer le poids de chaque matériau.
         Returns:
-            int: Charge totale.
+            Poids total de l'élément structural.
         """
-
         total = 0
         table = ""
         for item in self.materials:
@@ -69,40 +69,31 @@ class DeadLoads:
                 .filter(DeadLoadsTable.material == item)
                 .first()
             )
-            load = mat.load
             unit = mat.unit
-
+            load = mat.load
+            thickness = ""
             if unit in ("N/m3", "N/m2/mm"):
                 thickness = float(
-                    input(
-                        f"{self.member_name}: Épaisseur pour {mat.material} en mm -> "
-                    )
+                    input(f"{self.member_name}: Épaisseur pour {mat.material} en mm: ")
                 )
                 load *= thickness
+                thickness = f" {int(thickness)}mm"
                 if unit == "N/m3":
                     load /= 1000
             load /= 1000
-
             if print_table:
-                if unit in ("N/m3", "N/m2/mm"):
-                    table += f"{mat.material} {int(thickness)}mm|{round(load,2)} kPa\n"
-                else:
-                    table += f"{mat.material}|{round(load,2)} kPa\n"
-
+                table += f"{mat.material}{thickness}|{round(load,2)} kPa\n"
             total += load
         total = round(total, 2)
-
         if print_table:
             with open(file="member_loads.md", mode="a", encoding="utf-8") as md_file:
                 md_file.write(
-                    f"## {self.member_name}\n"
-                    + "___Matériau___|___Masse___\n"
+                    f"{self.member_name}| |\n"
                     + "-|-\n"
                     + table
                     + f"__Total__:|__{total}__ __kPa__\n"
-                    + "---"
+                    + "---\n"
                 )
-
         return total
 
     def sum_dead_loads(self, add_partitions=False, additional_loads=0):
@@ -111,30 +102,21 @@ class DeadLoads:
             supportés de façon permanente par l'élément structural.
 
         Args:
-            add_partitions: Poids des cloisons.
-                Defaults to False.
-
+            add_partitions: Ajoute 1 kPa pour le poids des cloisons.
             additional_loads: Poids additionnel (en kPa).
-                Defaults to 0.
-
         Returns:
-            int: Charge permanente
+            Charge permanente.
         """
-
         dead_loads = additional_loads
         if add_partitions:
             dead_loads += 1
-        dead_loads += self.member_load()
-        dead_loads = round(dead_loads, 2)
-
+        dead_loads += round(self.member_load(), 2)
         return dead_loads
 
 
-### TESTS ###
+# TESTS
 def tests():
-    """tests pour la classe DeadLoads."""
-    print()
-
+    """Tests pour la classe DeadLoads."""
     liste1 = [
         "Bois de feuillus 20mm",
         "É-P-S 19mm",
@@ -142,49 +124,49 @@ def tests():
         "Liens continus",
         "Panneau de gypse 12mm",
     ]
-    test = DeadLoads("test1", liste1).sum_dead_loads(True, 2)
+    test_sum_dead_loads = DeadLoads(liste1).sum_dead_loads(True, 2)
     expected_result = 3.51
-    if test != expected_result:
-        print("DeadLoads.sum_dead_loads -> FAILED")
-        print("result = ", test)
+    if test_sum_dead_loads != expected_result:
+        print("test_sum_dead_loads -> FAILED")
+        print("result = ", test_sum_dead_loads)
         print("expected = ", expected_result)
-        print()
     else:
-        print("DeadLoads.sum_dead_loads -> GOOD")
-        print()
+        print("test_sum_dead_loads -> PASSED")
 
-    test2 = DeadLoads("test2", liste1).member_load(False)
+    test_member_load = DeadLoads(liste1).member_load(False)
     expected_result = 0.51
-    if test2 != expected_result:
-        print("DeadLoads.member_load -> FAILED")
-        print("result = ", test2)
+    if test_member_load != expected_result:
+        print("test_member_load -> FAILED")
+        print("result = ", test_member_load)
         print("expected = ", expected_result)
-        print()
     else:
-        print("DeadLoads.member_load -> GOOD")
-        print()
+        print("test_member_load -> PASSED")
 
     toiture = [
         "Bardeaux d'asphalte",
         "Membrane caoutchoutée",
-        "Contreplaqué",
         "2x6 à 24po",
         "2x4 à 24po",
         "2x8 à 24po",
-        "Isolant en vrac",
         "Liens continus",
         "Panneau de gypse 12mm",
     ]
-    DeadLoads("plancher", toiture).member_load(True)
+    test_print_table = DeadLoads(toiture).member_load(True)
+    expected_result = 0.4
+    if test_print_table != expected_result:
+        print("test_print_table -> FAILED")
+        print("result = ", test_print_table)
+        print("expected = ", expected_result)
+    else:
+        print("test_print_table -> PASSED")
 
 
-### RUN FILE ###
+# RUN FILE
 if __name__ == "__main__":
-    print()
     print("------START_TESTS------")
     tests()
     print("-------END_TESTS-------")
-    print()
+    clt = ["E2 12%"]
+    DeadLoads(clt).member_load(True)
 
-
-### END ###
+# END
