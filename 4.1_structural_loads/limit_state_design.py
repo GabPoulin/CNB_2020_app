@@ -48,17 +48,17 @@ class LimitStatesDesign:
         h_s: Profondeur du sol, en m, supporté par la structure.
     """
 
-    dead: DeadLoads = 0
+    dead: float = 0
     live: float = 0
     snow: float = 0
     wind: float = 0
     earthquake: float = 0
+    h_s: float = 0
     counter_d: bool = False
     liquid_l: bool = False
     storage_area: bool = False
     exterior_area: bool = False
     car_access: bool = False
-    h_s: float = 0
 
     def _uls_factors(self):
         d1 = 1.4
@@ -199,12 +199,12 @@ def uls_tests():
         snow=2.5,
         wind=1,
         earthquake=1,
+        h_s=1,
         counter_d=True,
         liquid_l=True,
         exterior_area=True,
         storage_area=True,
         car_access=True,
-        h_s=1,
     ).uls()
     expected_result = 11.399999999999999
     if uls_storage_test != expected_result:
