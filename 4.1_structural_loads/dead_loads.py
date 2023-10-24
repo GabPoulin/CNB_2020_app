@@ -36,22 +36,18 @@ class DeadLoadsTable(declarative_base()):
 
 
 # CODE
+@dataclass
 class DeadLoads:
-    """4.1.4. Charge permanente."""
+    """4.1.4. Charge permanente.
 
-    def __init__(
-        self,
-        materials: list[str],
-        member_name: str = "matériaux",
-    ):
-        """4.1.4. Charge permanente.
+    Args:
+        materials: Liste des matériaux qui composent l'élément.
+        member_name: Nom de l'élément structural.
+    """
 
-        Args:
-            materials: Liste des matériaux qui composent l'élément.
-            member_name: Nom de l'élément structural.
-        """
-        self.member_name = member_name.title()
-        self.materials = materials
+    materials: list[str]
+    member_name: str = "matériaux"
+    member_name = member_name.title()
 
     def member_load(self, print_table=False):
         """Calcul la poids total des matériaux qui composent l'élément.
@@ -61,6 +57,7 @@ class DeadLoads:
         Returns:
             Poids total de l'élément structural.
         """
+
         total = 0
         table = ""
         for item in self.materials:
@@ -85,6 +82,7 @@ class DeadLoads:
                 table += f"{mat.material}{thickness}|{round(load,2)} kPa\n"
             total += load
         total = round(total, 2)
+
         if print_table:
             with open(file="member_loads.md", mode="a", encoding="utf-8") as md_file:
                 md_file.write(
@@ -94,6 +92,7 @@ class DeadLoads:
                     + f"__Total__:|__{total}__ __kPa__\n"
                     + "---\n"
                 )
+
         return total
 
     def sum_dead_loads(self, add_partitions=False, additional_loads=0):
@@ -107,16 +106,19 @@ class DeadLoads:
         Returns:
             Charge permanente.
         """
+
         dead_loads = additional_loads
         if add_partitions:
             dead_loads += 1
         dead_loads += round(self.member_load(), 2)
+
         return dead_loads
 
 
 # TESTS
 def tests():
     """Tests pour la classe DeadLoads."""
+
     liste1 = [
         "Bois de feuillus 20mm",
         "É-P-S 19mm",
@@ -126,6 +128,7 @@ def tests():
     ]
     test_sum_dead_loads = DeadLoads(liste1).sum_dead_loads(True, 2)
     expected_result = 3.51
+
     if test_sum_dead_loads != expected_result:
         print("test_sum_dead_loads -> FAILED")
         print("result = ", test_sum_dead_loads)
