@@ -11,6 +11,7 @@ __Total__:|__0.4__ __kPa__
 ---
 Matériaux| |
 -|-
-E2 12% 90mm|0.46 kPa
-__Total__:|__0.46__ __kPa__
+Béton 100mm|2.26 kPa
+Acier laminé 6mm|0.49 kPa
+__Total__:|__2.75__ __kPa__
 ---

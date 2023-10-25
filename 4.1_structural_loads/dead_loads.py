@@ -169,7 +169,10 @@ if __name__ == "__main__":
     print("------START_TESTS------")
     tests()
     print("-------END_TESTS-------")
-    clt = ["E2 12%"]
-    DeadLoads(clt).member_load(True)
+    materiaux = [
+        "Béton",
+        "Acier laminé",
+    ]
+    DeadLoads(materiaux).member_load(True)
 
 # END
