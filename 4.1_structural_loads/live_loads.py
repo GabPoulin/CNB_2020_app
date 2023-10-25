@@ -28,9 +28,10 @@ from sqlalchemy import create_engine, Column, TEXT, REAL
 class LiveLoadsTable(declarative_base()):
     """Fait référence à la table x de loads.db."""
 
-    __tablename__ = "x"
-    x: str = Column("x", TEXT, primary_key=True)
-
+    __tablename__ = "live_loads"
+    name: str = Column("name", TEXT, primary_key=True)
+    load: str = Column("load", REAL)
+    unit: str = Column("unit", TEXT)
     engine = create_engine("sqlite:///loads.db")
     Session = sessionmaker(engine)
     session = Session()
