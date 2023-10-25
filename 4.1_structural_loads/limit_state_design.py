@@ -146,8 +146,9 @@ class LimitStatesDesign:
             + 1.4 * self.wind
             + max(l4_factor * self.live, s4_factor * self.snow)
         )
-        case_5 = (
-            self.dead + self.earthquake + l5_factor * self.live + s5_factor * self.snow
+        case_5 = max(
+            self.dead + self.earthquake + l5_factor * self.live + s5_factor * self.snow,
+            self.snow,
         )
 
         ultimate_limit_state = max(case_1, case_2, case_3, case_4, case_5)
