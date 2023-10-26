@@ -21,6 +21,7 @@ from dataclasses import dataclass
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine, Column, TEXT, REAL
+from tkinter import filedialog
 
 
 # DB CONNECTION
@@ -84,14 +85,16 @@ class DeadLoads:
         total = round(total, 2)
 
         if print_table:
-            with open(file="member_loads.md", mode="a", encoding="utf-8") as md_file:
-                md_file.write(
-                    f"{self.member_name}| |\n"
-                    + "-|-\n"
-                    + table
-                    + f"__Total__:|__{total}__ __kPa__\n"
-                    + "---\n"
-                )
+            file_text = (
+                f"{self.member_name}| |\n"
+                + "-|-\n"
+                + table
+                + f"__Total__:|__{total}__ __kPa__\n"
+                + "---\n"
+            )
+            md_file = filedialog.asksaveasfile(defaultextension=".md")
+            md_file.write(file_text)
+            md_file.close()
 
         return total
 
@@ -169,10 +172,10 @@ if __name__ == "__main__":
     print("------START_TESTS------")
     tests()
     print("-------END_TESTS-------")
-    materiaux = [
-        "Béton",
-        "Acier laminé",
-    ]
-    DeadLoads(materiaux).member_load(True)
+    # materiaux = [
+    #     "Béton",
+    #     "Acier laminé",
+    # ]
+    # DeadLoads(materiaux).member_load(True)
 
 # END
