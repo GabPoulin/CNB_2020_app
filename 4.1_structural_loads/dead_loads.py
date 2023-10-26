@@ -48,7 +48,6 @@ class DeadLoads:
 
     materials: list[str]
     member_name: str = "matériaux"
-    member_name = member_name.title()
 
     def member_load(self, print_table=False):
         """Calcul la poids total des matériaux qui composent l'élément.
@@ -59,6 +58,7 @@ class DeadLoads:
             Poids total de l'élément structural.
         """
 
+        member_name = self.member_name.title()
         total = 0
         table = ""
         for item in self.materials:
@@ -72,7 +72,7 @@ class DeadLoads:
             thickness = ""
             if unit in ("N/m3", "N/m2/mm"):
                 thickness = float(
-                    input(f"{self.member_name}: Épaisseur pour {mat.material} en mm: ")
+                    input(f"{member_name}: Épaisseur pour {mat.material} en mm: ")
                 )
                 load *= thickness
                 thickness = f" {int(thickness)}mm"
@@ -86,13 +86,16 @@ class DeadLoads:
 
         if print_table:
             file_text = (
-                f"{self.member_name}| |\n"
+                f"{member_name}| |\n"
                 + "-|-\n"
                 + table
                 + f"__Total__:|__{total}__ __kPa__\n"
                 + "---\n"
             )
-            md_file = filedialog.asksaveasfile(defaultextension=".md")
+            md_file = filedialog.asksaveasfile(
+                initialfile=member_name,
+                defaultextension=".md",
+            )
             md_file.write(file_text)
             md_file.close()
 
@@ -157,7 +160,7 @@ def tests():
         "Liens continus",
         "Panneau de gypse 12mm",
     ]
-    test_print_table = DeadLoads(toiture).member_load(True)
+    test_print_table = DeadLoads(toiture, "toiture test").member_load(True)
     expected_result = 0.4
     if test_print_table != expected_result:
         print("test_print_table -> FAILED")
