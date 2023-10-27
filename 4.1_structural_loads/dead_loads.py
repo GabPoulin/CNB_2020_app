@@ -18,10 +18,10 @@ ________________________________________________________________________________
 
 # IMPORTS
 from dataclasses import dataclass
+from tkinter import filedialog
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine, Column, TEXT, REAL
-from tkinter import filedialog
 
 
 # DB CONNECTION
