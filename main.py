@@ -8,7 +8,7 @@ from sqlalchemy import create_engine, Column, TEXT, REAL
 
 
 class App(ctk.CTk):
-    """Application pour calculs du CNB 2020."""
+    """CNB 2020."""
 
     def __init__(self):
         super().__init__()
