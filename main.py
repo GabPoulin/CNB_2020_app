@@ -41,11 +41,11 @@ class App(ctk.CTk):
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()
 
-        app_width = int(screen_width * 0.5)
+        app_width = int(screen_width * 0.6)
         app_height = int(screen_height * 0.6)
 
-        left_pos = int(screen_width / 2 - app_width / 2 + 300)
-        top_pos = int(screen_height / 2 - app_height / 2)
+        left_pos = int(screen_width * 0.5 - app_width * 0.5)
+        top_pos = int(screen_height * 0.4 - app_height * 0.5)
 
         return app_width, app_height, left_pos, top_pos
 
