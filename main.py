@@ -13,7 +13,7 @@ class App(ctk.CTk):
     def __init__(self):
         super().__init__()
 
-        ctk.set_default_color_theme("color_theme.json")
+        ctk.set_default_color_theme("app_color_theme.json")
         self.title("CNB 2020")
         self.window_geometry()
         self.grid_layout()
