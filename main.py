@@ -13,29 +13,25 @@ class App(ctk.CTk):
     def __init__(self):
         super().__init__()
 
+        ctk.set_default_color_theme("color_theme.json")
         self.title("CNB 2020")
-        app_width, app_height, left_pos, top_pos = self.basic_window_geometry()
-        self.geometry(f"{app_width}x{app_height}+{left_pos}+{top_pos}")
+        self.window_geometry()
+        self.grid_layout()
 
-        self.loads_frame = ctk.CTkTabview(self, width=600)
-        self.loads_frame.pack(side="left", fill="y")
+        self.loads_tabview = ctk.CTkTabview(self, border_width=2)
+        self.loads_tabview.grid(row=0, column=0, sticky="nsew")
 
-        self.loads_frame.add("Charges permanentes")
-        add_element_button = ctk.CTkButton(
-            self.loads_frame.tab("Charges permanentes"),
-            text="Ajouter élément structural",
-            command=self.add_element,
-        )
-        add_element_button.pack(padx=20, pady=20, side="bottom", fill="x")
-        self.elements_id = 0
-        self.add_element()
+        self.output_frame = ctk.CTkFrame(self)
+        self.output_frame.grid(row=0, column=1, sticky="nsew")
 
-        self.loads_frame.add("Charges d'utilisation")
-        self.loads_frame.add("Neige")
-        self.loads_frame.add("Vent")
-        self.loads_frame.add("Séismes")
+        self.loads_tabview.add("Charges permanentes")
+        self.deadload_tab()
+        self.loads_tabview.add("Charges d'utilisation")
+        self.loads_tabview.add("Neige")
+        self.loads_tabview.add("Vent")
+        self.loads_tabview.add("Séismes")
 
-    def basic_window_geometry(self):
+    def window_geometry(self):
         """Ajuste les dimensions et position de la fenêtre de l'application."""
 
         screen_width = self.winfo_screenwidth()
@@ -47,12 +43,27 @@ class App(ctk.CTk):
         left_pos = int(screen_width / 2 - app_width / 2)
         top_pos = int(screen_height / 3 - app_height / 3)
 
-        return app_width, app_height, left_pos, top_pos
+        self.geometry(f"{app_width}x{app_height}+{left_pos}+{top_pos}")
+
+    def grid_layout(self):
+        self.columnconfigure(index=0, weight=1)
+        self.columnconfigure(index=1, weight=1)
+        self.rowconfigure(index=0, weight=1)
+
+    def deadload_tab(self):
+        self.elements_id = 0
+        self.add_element()
+        add_element_button = ctk.CTkButton(
+            self.loads_tabview.tab("Charges permanentes"),
+            text="Ajouter élément structural",
+            command=self.add_element,
+        )
+        add_element_button.pack(padx=20, pady=20, side="bottom", fill="x")
 
     def add_element(self):
         """Créer un nouvel élément structural."""
 
-        self.element_frame = ctk.CTkFrame(self.loads_frame.tab("Charges permanentes"))
+        self.element_frame = ctk.CTkFrame(self.loads_tabview.tab("Charges permanentes"))
         self.element_frame.pack(padx=10, pady=10, fill="x")
 
         self.elements_id += 1
