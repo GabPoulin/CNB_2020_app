@@ -15,14 +15,10 @@ class App(ctk.CTk):
 
         ctk.set_default_color_theme("app_color_theme.json")
         self.title("CNB 2020")
-        self.window_geometry()
-        self.grid_layout()
+        self.set_window_geometry()
 
-        self.loads_tabview = ctk.CTkTabview(self, border_width=2)
-        self.loads_tabview.grid(row=0, column=0, sticky="nsew")
-
-        self.output_frame = ctk.CTkFrame(self)
-        self.output_frame.grid(row=0, column=1, sticky="nsew")
+        self.loads_tabview = ctk.CTkTabview(self)
+        self.loads_tabview.pack(padx=5, pady=5, fill="both")
 
         self.loads_tabview.add("Charges permanentes")
         self.deadload_tab()
@@ -31,7 +27,7 @@ class App(ctk.CTk):
         self.loads_tabview.add("Vent")
         self.loads_tabview.add("Séismes")
 
-    def window_geometry(self):
+    def set_window_geometry(self):
         """Ajuste les dimensions et position de la fenêtre de l'application."""
 
         screen_width = self.winfo_screenwidth()
@@ -45,16 +41,24 @@ class App(ctk.CTk):
 
         self.geometry(f"{app_width}x{app_height}+{left_pos}+{top_pos}")
 
-    def grid_layout(self):
-        self.columnconfigure(index=0, weight=1)
-        self.columnconfigure(index=1, weight=1)
-        self.rowconfigure(index=0, weight=1)
+    def set_grid_layout(self):
+        pass
 
     def deadload_tab(self):
+        self.loads_tabview.tab("Charges permanentes").columnconfigure(
+            index=(0, 1), weight=1
+        )
+        self.loads_tabview.tab("Charges permanentes").rowconfigure(index=0, weight=1)
+
+        self.input_frame = ctk.CTkFrame(self.loads_tabview.tab("Charges permanentes"))
+        self.output_frame = ctk.CTkFrame(self.loads_tabview.tab("Charges permanentes"))
+
+        self.input_frame.grid(column=0, row=0, sticky="nsw")
+        self.output_frame.grid(column=1, row=0, sticky="nsew")
         self.elements_id = 0
         self.add_element()
         add_element_button = ctk.CTkButton(
-            self.loads_tabview.tab("Charges permanentes"),
+            self.input_frame,
             text="Ajouter élément structural",
             command=self.add_element,
         )
@@ -63,7 +67,7 @@ class App(ctk.CTk):
     def add_element(self):
         """Créer un nouvel élément structural."""
 
-        self.element_frame = ctk.CTkFrame(self.loads_tabview.tab("Charges permanentes"))
+        self.element_frame = ctk.CTkFrame(self.input_frame)
         self.element_frame.pack(padx=10, pady=10, fill="x")
 
         self.elements_id += 1
