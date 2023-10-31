@@ -20,12 +20,12 @@ class App(ctk.CTk):
         self.loads_tabview = ctk.CTkTabview(self)
         self.loads_tabview.pack(padx=5, pady=5, fill="both")
 
-        self.loads_tabview.add("Charges permanentes")
+        self.loads_tabview.add("D")
         self.deadload_tab()
-        self.loads_tabview.add("Charges d'utilisation")
-        self.loads_tabview.add("Neige")
-        self.loads_tabview.add("Vent")
-        self.loads_tabview.add("Séismes")
+        self.loads_tabview.add("L")
+        self.loads_tabview.add("S")
+        self.loads_tabview.add("W")
+        self.loads_tabview.add("E")
 
     def set_window_geometry(self):
         """Ajuste les dimensions et position de la fenêtre de l'application."""
@@ -45,13 +45,11 @@ class App(ctk.CTk):
         pass
 
     def deadload_tab(self):
-        self.loads_tabview.tab("Charges permanentes").columnconfigure(
-            index=(0, 1), weight=1
-        )
-        self.loads_tabview.tab("Charges permanentes").rowconfigure(index=0, weight=1)
+        self.loads_tabview.tab("D").columnconfigure(index=(0, 1), weight=1)
+        self.loads_tabview.tab("D").rowconfigure(index=0, weight=1)
 
-        self.input_frame = ctk.CTkFrame(self.loads_tabview.tab("Charges permanentes"))
-        self.output_frame = ctk.CTkFrame(self.loads_tabview.tab("Charges permanentes"))
+        self.input_frame = ctk.CTkFrame(self.loads_tabview.tab("D"))
+        self.output_frame = ctk.CTkFrame(self.loads_tabview.tab("D"))
 
         self.input_frame.grid(column=0, row=0, sticky="nsw")
         self.output_frame.grid(column=1, row=0, sticky="nsew")
