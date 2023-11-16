@@ -9,10 +9,8 @@ Section 4.1. Charges et méthodes de calcul.
     Effectue le calcul pour la charge permanente à partir du poids de différents matériaux.
 ____________________________________________________________________________________________________
     
-    
     auteur: GabPoulin
     email: poulin33@me.com
-
 ====================================================================================================
 """
 
@@ -125,14 +123,14 @@ class DeadLoads:
 def tests():
     """Tests pour la classe DeadLoads."""
 
-    liste1 = [
+    floor = [
         "Bois de feuillus 20mm",
         "É-P-S 19mm",
         "2x10 à 16po",
         "Liens continus",
         "Panneau de gypse 12mm",
     ]
-    test_sum_dead_loads = DeadLoads(liste1).sum_dead_loads(True, 2)
+    test_sum_dead_loads = DeadLoads(floor).sum_dead_loads(True, 2)
     expected_result = 3.51
 
     if test_sum_dead_loads != expected_result:
@@ -142,7 +140,7 @@ def tests():
     else:
         print("test_sum_dead_loads -> PASSED")
 
-    test_member_load = DeadLoads(liste1).member_load(False)
+    test_member_load = DeadLoads(floor).member_load(False)
     expected_result = 0.51
     if test_member_load != expected_result:
         print("test_member_load -> FAILED")

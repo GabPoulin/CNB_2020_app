@@ -41,9 +41,6 @@ class App(ctk.CTk):
 
         self.geometry(f"{app_width}x{app_height}+{left_pos}+{top_pos}")
 
-    def set_grid_layout(self):
-        pass
-
     def deadload_tab(self):
         self.loads_tabview.tab("D").columnconfigure(index=(0, 1), weight=1)
         self.loads_tabview.tab("D").rowconfigure(index=0, weight=1)
