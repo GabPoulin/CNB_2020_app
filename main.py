@@ -33,7 +33,7 @@ class App(ctk.CTk):
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()
 
-        app_width = int(screen_width * 0.6)
+        app_width = int(screen_width * 0.4)
         app_height = int(screen_height * 0.6)
 
         left_pos = int(screen_width / 2 - app_width / 2)
@@ -42,54 +42,42 @@ class App(ctk.CTk):
         self.geometry(f"{app_width}x{app_height}+{left_pos}+{top_pos}")
 
     def deadload_tab(self):
-        self.loads_tabview.tab("D").columnconfigure(index=(0, 1), weight=1)
-        self.loads_tabview.tab("D").rowconfigure(index=0, weight=1)
-
         self.input_frame = ctk.CTkFrame(self.loads_tabview.tab("D"))
-        self.output_frame = ctk.CTkFrame(self.loads_tabview.tab("D"))
+        self.input_frame.pack(padx=5, pady=30, side="left", fill="y")
 
-        self.input_frame.grid(column=0, row=0, sticky="nsw")
-        self.output_frame.grid(column=1, row=0, sticky="nsew")
-        self.elements_id = 0
-        self.add_element()
+        self.output_frame = ctk.CTkFrame(self.loads_tabview.tab("D"))
+        self.output_frame.pack(padx=5, pady=5, side="left", fill="both")
+        vertical_line = ctk.CTkFrame(self.output_frame, width=5, height=600)
+        vertical_line.pack(padx=5, pady=5, fill="y")
+
         add_element_button = ctk.CTkButton(
             self.input_frame,
-            text="Ajouter élément structural",
+            text="Nouvel élément structural",
             command=self.add_element,
         )
-        add_element_button.pack(padx=20, pady=20, side="bottom", fill="x")
-
-    def add_element(self):
-        """Créer un nouvel élément structural."""
-
-        self.element_frame = ctk.CTkFrame(self.input_frame)
-        self.element_frame.pack(padx=10, pady=10, fill="x")
-
-        self.elements_id += 1
-        element_name = tk.StringVar(value=f"Élément{self.elements_id}")
-        element_name_entry = ctk.CTkEntry(
-            self.element_frame,
-            width=80,
-            textvariable=element_name,
-        )
-        element_name_entry.pack(padx=5, pady=5, side="left", fill="y")
+        add_element_button.pack(padx=5, pady=5, ipady=30, fill="x")
 
         add_material_button = ctk.CTkButton(
-            self.element_frame,
-            text="+",
+            self.input_frame,
+            text="Ajouter matériau",
             command=self.add_material,
-            width=28,
         )
-        add_material_button.pack(padx=5, pady=5, side="bottom", anchor="w")
-        self.add_material()
+        add_material_button.pack(padx=5, pady=5, ipady=30, fill="x")
 
-    def add_material(self):
-        """Créer un nouveau matériau."""
+        horizontal_line = ctk.CTkFrame(self.input_frame, width=300, height=5)
+        horizontal_line.pack(padx=5, pady=5)
 
-        self.is_material = False
-        self.material_frame = ctk.CTkFrame(self.element_frame)
-        self.material_frame.pack(padx=5, pady=5, fill="x")
+        element_name = tk.StringVar(value=f"Nom de l'élément structural")
+        element_name_entry = ctk.CTkEntry(
+            self.input_frame,
+            textvariable=element_name,
+            width=200,
+        )
+        element_name_entry.pack(padx=5, pady=5, anchor="w")
 
+        self.select_category()
+
+    def select_category(self):
         @dataclass
         class DeadLoadsTable(declarative_base()):
             __tablename__ = "dead_loads"
@@ -105,23 +93,19 @@ class App(ctk.CTk):
                     category_list.append(j)
 
         category_combobox = ctk.CTkComboBox(
-            self.material_frame,
+            self.input_frame,
             values=category_list,
-            command=self.select_category,
+            command=self.select_material,
         )
-        category_combobox.pack(padx=5, pady=5, side="left")
-        self.select_category(category_combobox.get())
+        category_combobox.pack(padx=5, pady=5, fill="x")
 
-    def select_category(self, category):
-        """Affiche les matériaux d'une catégorie.
+        self.is_material = False
+        self.select_material(category_combobox.get())
 
-        Args:
-            category (str): Catégorie pour laquelle on souhaite afficher la liste des matériaux.
-        """
+    def select_material(self, category):
         if self.is_material:
             self.material_combobox.destroy()
             self.is_material = False
-
         self.is_material = True
 
         @dataclass
@@ -142,11 +126,18 @@ class App(ctk.CTk):
                 if j not in material_list:
                     material_list.append(j)
 
-        self.material_combobox = ctk.CTkComboBox(
-            self.material_frame,
-            values=material_list,
-        )
-        self.material_combobox.pack(padx=5, pady=5, side="left")
+        self.material_combobox = ctk.CTkComboBox(self.input_frame, values=material_list)
+        self.material_combobox.pack(padx=5, pady=5, fill="x")
+
+    def add_element(self):
+        """Créer un nouvel élément structural."""
+
+        pass
+
+    def add_material(self):
+        """Créer un nouvel élément structural."""
+
+        pass
 
 
 if __name__ == "__main__":
