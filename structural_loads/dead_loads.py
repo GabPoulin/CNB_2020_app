@@ -9,8 +9,10 @@ Section 4.1. Charges et méthodes de calcul.
     Effectue le calcul pour la charge permanente à partir du poids de différents matériaux.
 ____________________________________________________________________________________________________
     
+    
     auteur: GabPoulin
     email: poulin33@me.com
+    
 ====================================================================================================
 """
 
@@ -29,7 +31,7 @@ class DeadLoadsTable(declarative_base()):
 
     __tablename__ = "dead_loads"
     material: str = Column("material", TEXT, primary_key=True)
-    load: str = Column("load", REAL)
+    load: float = Column("load", REAL)
     unit: str = Column("unit", TEXT)
     session = sessionmaker(create_engine("sqlite:///loads.db"))()
 
@@ -45,7 +47,7 @@ class DeadLoads:
     """
 
     materials: list[str]
-    member_name: str = "matériaux"
+    member_name: str = "Charges permanentes"
 
     def member_load(self, print_table=False):
         """Calcul la poids total des matériaux qui composent l'élément.
@@ -140,7 +142,7 @@ def tests():
     else:
         print("test_sum_dead_loads -> PASSED")
 
-    test_member_load = DeadLoads(floor).member_load(False)
+    test_member_load = DeadLoads(floor).member_load()
     expected_result = 0.51
     if test_member_load != expected_result:
         print("test_member_load -> FAILED")
@@ -158,7 +160,7 @@ def tests():
         "Liens continus",
         "Panneau de gypse 12mm",
     ]
-    test_print_table = DeadLoads(toiture, "toiture test").member_load(True)
+    test_print_table = DeadLoads(toiture, "Toiture").member_load(True)
     expected_result = 0.4
     if test_print_table != expected_result:
         print("test_print_table -> FAILED")
