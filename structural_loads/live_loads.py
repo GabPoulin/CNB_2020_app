@@ -18,14 +18,14 @@ ________________________________________________________________________________
 ====================================================================================================
 """
 
-### IMPORTS ###
+# IMPORTS
 from dataclasses import dataclass
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine, Column, TEXT, REAL, INTEGER
 
 
-### DB MANAGEMENT ###
+# DB CONNECTION
 @dataclass
 class LiveLoadsTable(declarative_base()):
     """Se connecte à la table live_loads de loads.db."""
@@ -41,7 +41,7 @@ class LiveLoadsTable(declarative_base()):
     session = Session()
 
 
-### CODE ###
+# CODE
 @dataclass
 class LiveLoads:
     """4.1.5. Surcharges dues à l'usage.
@@ -165,7 +165,7 @@ class LiveLoads:
         return self._low_importance_factor(load), message
 
 
-### TESTS ###
+# TESTS
 def tests():
     """tests pour la classe LiveLoads."""
 
@@ -216,10 +216,10 @@ def tests():
         print("test4_concentrated_load -> PASSED")
 
 
-### RUN FILE ###
+# RUN FILE
 if __name__ == "__main__":
     print("------START_TESTS------")
     tests()
     print("-------END_TESTS-------")
 
-### END ###
+# END

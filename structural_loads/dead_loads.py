@@ -175,10 +175,5 @@ if __name__ == "__main__":
     print("------START_TESTS------")
     tests()
     print("-------END_TESTS-------")
-    # materiaux = [
-    #     "Béton",
-    #     "Acier laminé",
-    # ]
-    # DeadLoads(materiaux).member_load(True)
 
 # END
