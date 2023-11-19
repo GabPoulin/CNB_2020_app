@@ -47,14 +47,24 @@ class SnowLoads:
 
     arg: str = "default value"
 
-    def func_name(self):
-        """4.1.6.X. desc.
+    def snow_load(self):
+        """4.1.6.2. Charge spécifiée due à la neige.
 
         Args:
             arg: desc.
         """
 
-        return None
+        Is = importance_factor
+        Ss = snow_load
+        Cb = basic_factor
+        Cw = wind_factor
+        Cs = slope_factor
+        Ca = accumulation_factor
+        Sr = rain_load
+
+        S = Is * (Ss * (Cb * Cw * Cs * Ca) + Sr)
+
+        return S
 
 
 # TESTS
