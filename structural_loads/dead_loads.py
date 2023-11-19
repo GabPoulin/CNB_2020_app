@@ -125,6 +125,8 @@ class DeadLoads:
 def tests():
     """Tests pour la classe DeadLoads."""
 
+    print("------START_TESTS------")
+
     floor = [
         "Bois de feuillus 20mm",
         "É-P-S 19mm",
@@ -169,11 +171,11 @@ def tests():
     else:
         print("test_print_table -> PASSED")
 
+    print("-------END_TESTS-------")
+
 
 # RUN FILE
 if __name__ == "__main__":
-    print("------START_TESTS------")
     tests()
-    print("-------END_TESTS-------")
 
 # END

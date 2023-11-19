@@ -25,7 +25,7 @@ from sqlalchemy import create_engine, Column, TEXT, REAL, INTEGER
 
 # DB CONNECTION
 @dataclass
-class LiveLoadsTable(declarative_base()):
+class XLoadsTable(declarative_base()):
     """Se connecte à la table X de loads.db."""
 
     __tablename__ = "X"
@@ -47,32 +47,59 @@ class SnowLoads:
 
     arg: str = "default value"
 
-    def snow_load(self):
+    def specified_snow_load(self):
         """4.1.6.2. Charge spécifiée due à la neige.
 
         Args:
             arg: desc.
         """
 
-        Is = importance_factor
-        Ss = snow_load
-        Cb = basic_factor
-        Cw = wind_factor
-        Cs = slope_factor
-        Ca = accumulation_factor
-        Sr = rain_load
+        importance_factor = self._importance_factor()
+        snow_load = self._snow_load()
+        basic_factor = self._basic_factor()
+        wind_factor = self._wind_factor()
+        slope_factor = self._slope_factor()
+        accumulation_factor = self._accumulation_factor()
+        rain_load = self._rain_load()
 
-        S = Is * (Ss * (Cb * Cw * Cs * Ca) + Sr)
+        specified_snow_load = importance_factor * (
+            snow_load
+            * (basic_factor * wind_factor * slope_factor * accumulation_factor)
+            + rain_load
+        )
 
-        return S
+        return specified_snow_load
+
+    def _importance_factor(self):
+        return 1
+
+    def _snow_load(self):
+        return 1
+
+    def _basic_factor(self):
+        return 1
+
+    def _wind_factor(self):
+        return 1
+
+    def _slope_factor(self):
+        return 1
+
+    def _accumulation_factor(self):
+        return 1
+
+    def _rain_load(self):
+        return 1
 
 
 # TESTS
 def tests():
     """tests pour la classe SnowLoads."""
 
-    test1 = SnowLoads().func_name()
-    expected_result = None
+    print("------START_TESTS------")
+
+    test1 = SnowLoads().specified_snow_load()
+    expected_result = 2
     if test1 != expected_result:
         print("test1 -> FAILED")
         print("result = ", test1)
@@ -80,11 +107,11 @@ def tests():
     else:
         print("test1 -> PASSED")
 
+    print("-------END_TESTS-------")
+
 
 # RUN FILE
 if __name__ == "__main__":
-    print("------START_TESTS------")
     tests()
-    print("-------END_TESTS-------")
 
 # END

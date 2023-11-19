@@ -171,6 +171,8 @@ class LiveLoads:
 def tests():
     """tests pour la classe LiveLoads."""
 
+    print("------START_TESTS------")
+
     garage = "Garage (véhicules > 9000 kg)"
     salle_a_manger = "Salle à manger"
     faible = "Faible"
@@ -217,11 +219,11 @@ def tests():
     else:
         print("test4_concentrated_load -> PASSED")
 
+    print("-------END_TESTS-------")
+
 
 # RUN FILE
 if __name__ == "__main__":
-    print("------START_TESTS------")
     tests()
-    print("-------END_TESTS-------")
 
 # END

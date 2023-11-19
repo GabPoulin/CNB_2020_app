@@ -180,9 +180,10 @@ class LimitStatesDesign:
 
 
 # TESTS
-def uls_tests():
-    """tests pour la fonction uls"""
-    print("----ELU----")
+def tests():
+    """tests pour la classe LimitStateDesing"""
+
+    print("------START_TESTS------")
 
     uls_default_test = LimitStatesDesign().uls()
     expected_result = 0
@@ -214,11 +215,6 @@ def uls_tests():
     else:
         print("uls_storage_test -> PASSED")
 
-
-def sls_tests():
-    """tests pour la fonction sls"""
-    print("----ELTS----")
-
     sls_default_test = LimitStatesDesign().sls()
     expected_result = 0
     if sls_default_test != expected_result:
@@ -244,12 +240,11 @@ def sls_tests():
     else:
         print("sls_storage_test -> PASSED")
 
+    print("-------END_TESTS-------")
+
 
 # RUN FILE
 if __name__ == "__main__":
-    print("------START_TESTS------")
-    uls_tests()
-    sls_tests()
-    print("-------END_TESTS-------")
+    tests()
 
 # END
