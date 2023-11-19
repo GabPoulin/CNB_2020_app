@@ -137,13 +137,15 @@ class LiveLoads:
                     reduction = True
 
         factor = 1
+        A = area
+        B = area
         if reduction:
             if self.use in use_A:
                 if area > 80:
-                    factor = 0.5 + (20 / area) ** 0.5
+                    factor = 0.5 + (20 / A) ** 0.5
             else:
                 if area > 20:
-                    factor = 0.3 + (9.8 / area) ** 0.5
+                    factor = 0.3 + (9.8 / B) ** 0.5
 
         message = "Aucun coefficient de réduction de surface tributaire n'est appliqué."
         if factor != 1:
