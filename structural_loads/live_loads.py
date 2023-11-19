@@ -48,7 +48,7 @@ class LiveLoads:
 
     Args:
         use: Usage prévue.
-        importance: Catégorie de risque.
+        importance: Catégorie de risque ("Faible", "Normal", "Élevé", "Protection civile").
     """
 
     use: str
@@ -77,8 +77,7 @@ class LiveLoads:
         Args:
             width: Largeur de surface (m).
             length: Longueur de surface (m).
-
-            reinforced_slab: 'True' si la surface est une dalle armée.
+            reinforced_slab: Spécifier "True" si la surface est une dalle armée.
         """
 
         load = self._get_info().uniform

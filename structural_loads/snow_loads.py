@@ -42,10 +42,12 @@ class SnowLoads:
     """4.1.6. Charge due à la neige et à la pluie.
 
     Args:
-        arg: desc.
+        importance: Catégorie de risque ("Faible", "Normal", "Élevé", "Protection civile").
+        limit_state: Spécifier ("ÉLU", "ÉLTS").
     """
 
-    arg: str = "default value"
+    importance: str = "Normal"
+    limit_state: str = "ÉLU"
 
     def specified_snow_load(self):
         """4.1.6.2. Charge spécifiée due à la neige.
@@ -71,7 +73,15 @@ class SnowLoads:
         return specified_snow_load
 
     def _importance_factor(self):
-        return 1
+        """Tableau 4.1.6.2.-A. Coefficient de risque de la charge due à la neige, Is"""
+
+        uls_factor = 1
+        sls_factor = 0.9
+
+        if self.importance == "Faible":
+            uls_factor = 0.8
+
+        return uls_factor, sls_factor
 
     def _snow_load(self):
         return 1
