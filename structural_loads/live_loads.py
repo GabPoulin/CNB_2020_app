@@ -54,8 +54,8 @@ class LiveLoads:
     use: str
     importance: str = "Normal"
 
-    def _get_info(self):
-        """Récupère les informations de loads.db pour l'usage prévu."""
+    def _get_live_info(self):
+        """Récupère les surcharges de loads.db pour l'usage prévu."""
 
         return (
             LiveLoadsTable.session.query(LiveLoadsTable)
@@ -80,7 +80,7 @@ class LiveLoads:
             reinforced_slab: Spécifier "True" si la surface est une dalle armée.
         """
 
-        load = self._get_info().uniform
+        load = self._get_live_info().uniform
         area = width * length
 
         if self.use == "Salle à manger":
@@ -157,10 +157,10 @@ class LiveLoads:
 
         load = 0
         message = "Aucune charge concentrée requise."
-        if self._get_info().concentrated:
-            load = self._get_info().concentrated
-            area_x = self._get_info().area_x
-            area_y = self._get_info().area_y
+        if self._get_live_info().concentrated:
+            load = self._get_live_info().concentrated
+            area_x = self._get_live_info().area_x
+            area_y = self._get_live_info().area_y
             message = f"Surface de {area_x}mm x {area_y}mm soumise à la charge."
 
         return self._low_importance_factor(load), message
