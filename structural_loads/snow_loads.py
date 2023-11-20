@@ -18,6 +18,7 @@ ________________________________________________________________________________
 
 # IMPORTS
 from dataclasses import dataclass
+from math import exp
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine, Column, TEXT, REAL, INTEGER
@@ -43,22 +44,55 @@ class SnowLoads:
     """4.1.6. Charge due à la neige et à la pluie.
 
     Args:
+        location: Emplacement du bâtiment.
+        roof_height: Hauteur moyenne du toit au-dessus du niveau moyen du sol (m).
+        roof_larger_dimension: Plus grande dimension horizontale du toit (m).
+        roof_smaller_dimension: Plus petite dimension horizontale du toit (m).
+
+    Optional:
+        drifting: Accumulation de neige provenant de toit adjacents.
+        exposed_to_wind: Bâtiment exposé au vent sur toutes ses faces.
         importance: Catégorie de risque ("Faible", "Normal", "Élevé", "Protection civile").
         limit_state: Spécifier ("ÉLU", "ÉLTS").
-        location: Emplacement du bâtiment.
+        north_area: région située au nord de la limite des arbres.
+        obstructions_distance: Distance de l'obstacle (m).
+        obstructions_height: Hauteur de l'obstacle (m).
+        rural_area: Région rurale.
     """
 
     location: str
+    roof_height: float
+    roof_larger_dimension: float
+    roof_smaller_dimension: float
+
+    drifting: bool = False
+    exposed_to_wind: bool = False
     importance: str = "Normal"
     limit_state: str = "ÉLU"
+    north_area: bool = False  # inclure dans db
+    obstructions_distance: float = 0
+    obstructions_height: float = 0
+    rural_area: bool = False  # inclure dans db
+
+    def _get_climate_info(self):
+        """Récupère les données climatiques de loads.db pour l'emplacement choisi."""
+
+        return (
+            ClimaticDataTable.session.query(ClimaticDataTable)
+            .filter(ClimaticDataTable.location == self.location)
+            .first()
+        )
 
     def specified_load(self):
-        """4.1.6.2. Charge spécifiée due à la neige."""
+        """4.1.6.2. - S: Charge spécifiée due à la neige."""
 
         importance_factor = self._importance_factor()
         snow_load = self._get_climate_info().snow
+        print("Ss =", snow_load)
         basic_factor = self._basic_factor()
+        print("Cb =", basic_factor)
         wind_factor = self._wind_factor()
+        print("Cw =", wind_factor)
         slope_factor = self._slope_factor()
         accumulation_factor = self._accumulation_factor()
         rain_load = min(
@@ -66,12 +100,14 @@ class SnowLoads:
             snow_load
             * (basic_factor * wind_factor * slope_factor * accumulation_factor),
         )
+        print("Sr =", rain_load)
 
         specified_load = importance_factor * (
             snow_load
             * (basic_factor * wind_factor * slope_factor * accumulation_factor)
             + rain_load
         )
+        print("S = ", specified_load)
 
         return round(specified_load, 2)
 
@@ -93,14 +129,49 @@ class SnowLoads:
     def _basic_factor(self):
         """4.1.6.2.2). - Cb: coefficient de base de charge de neige sur le toit."""
 
-        factor = 1
+        cb = 1
 
-        return 1
+        ss = self._get_climate_info().snow
+        gamma = self._snow_specific_weight()
+        if self.roof_height >= 1 + (ss / gamma):
+            w = self.roof_smaller_dimension
+            l = self.roof_larger_dimension
+            lc = 2 * w - w**2 / l
+
+            cw = self._wind_factor()
+            if lc <= 70 / cw**2:
+                cb = 0.8
+            else:
+                cb = (1 / cw) * (1 - (1 - 0.8 * cw) * exp(-(lc * cw**2 - 70) / 100))
+
+        return cb
 
     def _wind_factor(self):
         """4.1.6.2.3) et 4). - Cw: coefficient d'exposition au vent."""
 
-        return 1
+        cw = 1
+
+        if self.importance in ("Faible", "Normal"):
+            a = self.exposed_to_wind
+            b = self.obstructions_height > 0
+            c = not self.drifting
+            if a and b and c:
+                if self.north_area:
+                    cw = 0.5
+                elif self.rural_area:
+                    cw = 0.75
+                else:
+                    b = False
+
+                if b:
+                    d = self.obstructions_distance
+                    h = self.obstructions_height
+                    ss = self._get_climate_info().snow
+                    gamma = self._snow_specific_weight()
+                    if d < 10 * (h - cw * ss / gamma):
+                        cw = 1
+
+        return cw
 
     def _slope_factor(self):
         """4.1.6.2.5) à 7). - Cs: coefficient de pente."""
@@ -111,15 +182,6 @@ class SnowLoads:
         """4.1.6.2.8). - Ca: coefficient d'accumulation."""
 
         return 1
-
-    def _get_climate_info(self):
-        """Récupère les données climatiques de loads.db pour l'emplacement choisi."""
-
-        return (
-            ClimaticDataTable.session.query(ClimaticDataTable)
-            .filter(ClimaticDataTable.location == self.location)
-            .first()
-        )
 
     def _snow_specific_weight(self):
         """4.1.6.13. - γ: poids spécifique de la neige."""
@@ -135,10 +197,19 @@ def tests():
 
     test1 = SnowLoads(
         location="Gaspé",
+        roof_height=5,
+        roof_larger_dimension=5,
+        roof_smaller_dimension=5,
+        drifting=False,
+        exposed_to_wind=True,
         importance="Normal",
         limit_state="ÉLU",
+        north_area=False,
+        obstructions_distance=1,
+        obstructions_height=0.86,
+        rural_area=True,
     ).specified_load()
-    expected_result = 4.9
+    expected_result = 3.18
     if test1 != expected_result:
         print("test1 -> FAILED")
         print("result = ", test1)
