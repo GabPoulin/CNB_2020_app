@@ -208,7 +208,7 @@ class SnowLoads:
     def _accumulation_factor(self):
         """4.1.6.2.8). - Ca: coefficient d'accumulation."""
 
-        ca = 2
+        ca = 1
 
         return ca
 
