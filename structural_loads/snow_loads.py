@@ -48,6 +48,7 @@ class SnowLoads:
         roof_height: Hauteur moyenne du toit au-dessus du niveau moyen du sol (m).
         roof_larger_dimension: Plus grande dimension horizontale du toit (m).
         roof_smaller_dimension: Plus petite dimension horizontale du toit (m).
+        slope: Pente du toit (°).
 
     Optional:
         drifting: Accumulation de neige provenant de toit adjacents.
@@ -58,12 +59,14 @@ class SnowLoads:
         obstructions_distance: Distance de l'obstacle (m).
         obstructions_height: Hauteur de l'obstacle (m).
         rural_area: Région rurale.
+        slippery_roof: Toit glissant sans obstruction.
     """
 
     location: str
     roof_height: float
     roof_larger_dimension: float
     roof_smaller_dimension: float
+    slope: float
 
     drifting: bool = False
     exposed_to_wind: bool = False
@@ -73,6 +76,7 @@ class SnowLoads:
     obstructions_distance: float = 0
     obstructions_height: float = 0
     rural_area: bool = False  # inclure dans db
+    slippery_roof: bool = False
 
     def _get_climate_info(self):
         """Récupère les données climatiques de loads.db pour l'emplacement choisi."""
@@ -87,6 +91,7 @@ class SnowLoads:
         """4.1.6.2. - S: Charge spécifiée due à la neige."""
 
         importance_factor = self._importance_factor()
+        print("Is =", importance_factor)
         snow_load = self._get_climate_info().snow
         print("Ss =", snow_load)
         basic_factor = self._basic_factor()
@@ -94,7 +99,9 @@ class SnowLoads:
         wind_factor = self._wind_factor()
         print("Cw =", wind_factor)
         slope_factor = self._slope_factor()
+        print("Cs =", slope_factor)
         accumulation_factor = self._accumulation_factor()
+        print("Ca =", accumulation_factor)
         rain_load = min(
             self._get_climate_info().rain,
             snow_load
@@ -176,17 +183,41 @@ class SnowLoads:
     def _slope_factor(self):
         """4.1.6.2.5) à 7). - Cs: coefficient de pente."""
 
-        return 1
+        alpha = self.slope
+        if not self.slippery_roof:
+            if alpha <= 30:
+                cs = 1
+            elif alpha <= 70:
+                cs = (70 - alpha) / 40
+            else:
+                cs = 0
+
+        else:
+            if alpha <= 15:
+                cs = 1
+            elif alpha <= 60:
+                cs = (60 - alpha) / 45
+            else:
+                cs = 0
+
+        if self._accumulation_factor() > 1:
+            cs = 1
+
+        return cs
 
     def _accumulation_factor(self):
         """4.1.6.2.8). - Ca: coefficient d'accumulation."""
 
-        return 1
+        ca = 2
+
+        return ca
 
     def _snow_specific_weight(self):
         """4.1.6.13. - γ: poids spécifique de la neige."""
 
-        return min(4, 0.43 * self._get_climate_info().snow + 2.2)
+        gamma = min(4, 0.43 * self._get_climate_info().snow + 2.2)
+
+        return gamma
 
 
 # TESTS
@@ -200,6 +231,7 @@ def tests():
         roof_height=5,
         roof_larger_dimension=5,
         roof_smaller_dimension=5,
+        slope=25,
         drifting=False,
         exposed_to_wind=True,
         importance="Normal",
@@ -208,8 +240,9 @@ def tests():
         obstructions_distance=1,
         obstructions_height=0.86,
         rural_area=True,
+        slippery_roof=True,
     ).specified_load()
-    expected_result = 3.18
+    expected_result = 2.61
     if test1 != expected_result:
         print("test1 -> FAILED")
         print("result = ", test1)
