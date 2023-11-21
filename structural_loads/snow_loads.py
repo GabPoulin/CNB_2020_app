@@ -18,6 +18,7 @@ ________________________________________________________________________________
 
 # IMPORTS
 from dataclasses import dataclass
+from dead_loads import DeadLoads
 from math import exp
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
@@ -32,7 +33,7 @@ class ClimaticDataTable(declarative_base()):
     __tablename__ = "climatic_data"
     location: str = Column("location", TEXT, primary_key=True)
     snow: float = Column("snow", REAL)
-    rain: float = Column("rain", REAL)
+    snow_rain: float = Column("snow_rain", REAL)
     engine = create_engine("sqlite:///loads.db")
     Session = sessionmaker(engine)
     session = Session()
@@ -51,15 +52,21 @@ class SnowLoads:
         slope: Pente du toit (°).
 
     Optional:
-        drifting: Accumulation de neige provenant de toit adjacents.
+        dome: Toit à 2 versants ou en dôme.
+        drifting_distance: Distance avec le toit adjacent plus élevé (m).
         exposed_to_wind: Bâtiment exposé au vent sur toutes ses faces.
         importance: Catégorie de risque ("Faible", "Normal", "Élevé", "Protection civile").
         limit_state: Spécifier ("ÉLU", "ÉLTS").
-        north_area: région située au nord de la limite des arbres.
-        obstructions_distance: Distance de l'obstacle (m).
-        obstructions_height: Hauteur de l'obstacle (m).
+        meltwater: Écoulement des eaux de fonte depuis un toit adjacent.
+        north_area: Région située au nord de la limite des arbres.
+        projections_height: Hauteur de l'élément hors toit (m).
+        rain_accumulation: Possibilité d'ccumulation d'eaux pluviales.
         rural_area: Région rurale.
+        sliding: Glissement provenant d'un toit adjacent.
         slippery_roof: Toit glissant sans obstruction.
+        valley: Accumulation aux noues.
+        wind_obstructions_distance: Distance avec l'obstacle (m).
+        wind_obstructions_height: Hauteur de l'obstacle (m).
     """
 
     location: str
@@ -68,15 +75,21 @@ class SnowLoads:
     roof_smaller_dimension: float
     slope: float
 
-    drifting: bool = False
+    dome: bool = False
+    drifting_distance: float = 10
     exposed_to_wind: bool = False
     importance: str = "Normal"
     limit_state: str = "ÉLU"
+    meltwater: bool = False
     north_area: bool = False  # inclure dans db
-    obstructions_distance: float = 0
-    obstructions_height: float = 0
+    projections_height: float = 0
+    rain_accumulation: bool = False
     rural_area: bool = False  # inclure dans db
+    sliding: bool = False
     slippery_roof: bool = False
+    valley: bool = False
+    wind_obstructions_distance: float = 0
+    wind_obstructions_height: float = 0
 
     def _get_climate_info(self):
         """Récupère les données climatiques de loads.db pour l'emplacement choisi."""
@@ -88,33 +101,31 @@ class SnowLoads:
         )
 
     def specified_load(self):
+        """4.1.6.1. Charge spécifiée due à la pluie, ou à la neige et à la pluie qui l'accompagne."""
+
+        return max(self._specified_snow_load(), self._specified_rain_load())
+
+    def _specified_snow_load(self):
         """4.1.6.2. - S: Charge spécifiée due à la neige."""
 
         importance_factor = self._importance_factor()
-        print("Is =", importance_factor)
         snow_load = self._get_climate_info().snow
-        print("Ss =", snow_load)
         basic_factor = self._basic_factor()
-        print("Cb =", basic_factor)
         wind_factor = self._wind_factor()
-        print("Cw =", wind_factor)
         slope_factor = self._slope_factor()
-        print("Cs =", slope_factor)
         accumulation_factor = self._accumulation_factor()
         print("Ca =", accumulation_factor)
         rain_load = min(
-            self._get_climate_info().rain,
+            self._get_climate_info().snow_rain,
             snow_load
             * (basic_factor * wind_factor * slope_factor * accumulation_factor),
         )
-        print("Sr =", rain_load)
 
         specified_load = importance_factor * (
             snow_load
             * (basic_factor * wind_factor * slope_factor * accumulation_factor)
             + rain_load
         )
-        print("S = ", specified_load)
 
         return round(specified_load, 2)
 
@@ -160,9 +171,10 @@ class SnowLoads:
 
         if self.importance in ("Faible", "Normal"):
             a = self.exposed_to_wind
-            b = self.obstructions_height > 0
-            c = not self.drifting
-            if a and b and c:
+            b = self.wind_obstructions_height > 0
+            c = self.drifting_distance > 5
+            d = not self.sliding
+            if a and b and c and d:
                 if self.north_area:
                     cw = 0.5
                 elif self.rural_area:
@@ -171,8 +183,8 @@ class SnowLoads:
                     b = False
 
                 if b:
-                    d = self.obstructions_distance
-                    h = self.obstructions_height
+                    d = self.wind_obstructions_distance
+                    h = self.wind_obstructions_height
                     ss = self._get_climate_info().snow
                     gamma = self._snow_specific_weight()
                     if d < 10 * (h - cw * ss / gamma):
@@ -210,7 +222,36 @@ class SnowLoads:
 
         ca = 1
 
+        if self.drifting_distance <= 5:
+            ca_a = 1
+            ca = max(ca, ca_a)
+
+        if self.projections_height > 0:
+            ca_b = 1
+            ca = max(ca, ca_b)
+
+        if self.dome:
+            ca_c = 1
+            ca = max(ca, ca_c)
+
+        if self.sliding:
+            ca_d = 1
+            ca = max(ca, ca_d)
+
+        if self.valley:
+            ca_e = 1
+            ca = max(ca, ca_e)
+
+        if self.meltwater:
+            ca_f = 1
+            ca = max(ca, ca_f)
+
         return ca
+
+    def _specified_rain_load(self):
+        specified_load = 1
+
+        return specified_load
 
     def _snow_specific_weight(self):
         """4.1.6.13. - γ: poids spécifique de la neige."""
@@ -232,15 +273,15 @@ def tests():
         roof_larger_dimension=5,
         roof_smaller_dimension=5,
         slope=25,
-        drifting=False,
+        drifting_distance=10,
         exposed_to_wind=True,
         importance="Normal",
         limit_state="ÉLU",
         north_area=False,
-        obstructions_distance=1,
-        obstructions_height=0.86,
         rural_area=True,
         slippery_roof=True,
+        wind_obstructions_distance=1,
+        wind_obstructions_height=0.86,
     ).specified_load()
     expected_result = 2.61
     if test1 != expected_result:
