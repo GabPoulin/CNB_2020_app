@@ -18,8 +18,8 @@ ________________________________________________________________________________
 
 # IMPORTS
 from dataclasses import dataclass
-from dead_loads import DeadLoads
 from math import exp
+from dead_loads import DeadLoads
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine, Column, TEXT, REAL, INTEGER
