@@ -222,28 +222,23 @@ class SnowLoads:
 
         ca = 1
 
-        if self.drifting_distance <= 5:
-            """4.1.6.5.-6.-8."""
+        if self.drifting_distance <= 5:  # 4.1.6.5.-6.-8.
             ca_a = 1
             ca = max(ca, ca_a)
 
-        if self.projections_height > 0:
-            """4.1.6.7.-8."""
+        if self.projections_height > 0:  # 4.1.6.7.-8.
             ca_b = 1
             ca = max(ca, ca_b)
 
-        if self.dome:
-            """4.1.6.9.-10."""
+        if self.dome:  # 4.1.6.9.-10.
             ca_c = 1
             ca = max(ca, ca_c)
 
-        if self.sliding:
-            """4.1.6.11."""
+        if self.sliding:  # 4.1.6.11.
             ca_d = 1
             ca = max(ca, ca_d)
 
-        if self.valley:
-            """4.1.6.12."""
+        if self.valley:  # 4.1.6.12.
             ca_e = 1
             ca = max(ca, ca_e)
 
