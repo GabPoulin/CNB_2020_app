@@ -43,24 +43,18 @@ class DeadLoads:
 
     Args:
         materials: Liste des matériaux qui composent l'élément.
-        member_name: Nom de l'élément structural.
     """
 
-    materials: list[str]
-    member_name: str = "Charges permanentes"
+    materials: list[str] = ()
 
-    def member_load(self, print_table=False):
+    def member_load(self):
         """Calcul la poids total des matériaux qui composent l'élément.
 
-        Args:
-            print_table: Créé un tableau pour indiquer le poids de chaque matériau.
         Returns:
             Poids total de l'élément structural.
         """
 
-        member_name = self.member_name.title()
         total = 0
-        table = ""
         for item in self.materials:
             mat = (
                 DeadLoadsTable.session.query(DeadLoadsTable)
@@ -71,33 +65,13 @@ class DeadLoads:
             load = mat.load
             thickness = ""
             if unit in ("N/m3", "N/m2/mm"):
-                thickness = float(
-                    input(f"{member_name}: Épaisseur pour {mat.material} en mm: ")
-                )
+                thickness = float(input(f"Épaisseur pour {mat.material} en mm: "))
                 load *= thickness
-                thickness = f" {int(thickness)}mm"
                 if unit == "N/m3":
                     load /= 1000
             load /= 1000
-            if print_table:
-                table += f"{mat.material}{thickness}|{round(load,2)} kPa\n"
             total += load
         total = round(total, 2)
-
-        if print_table:
-            file_text = (
-                f"{member_name}| |\n"
-                + "-|-\n"
-                + table
-                + f"__Total__:|__{total}__ __kPa__\n"
-                + "---\n"
-            )
-            md_file = filedialog.asksaveasfile(
-                initialfile=member_name,
-                defaultextension=".md",
-            )
-            md_file.write(file_text)
-            md_file.close()
 
         return total
 
@@ -113,12 +87,12 @@ class DeadLoads:
             Charge permanente.
         """
 
-        dead_loads = additional_loads
+        d = additional_loads
         if add_partitions:
-            dead_loads += 1
-        dead_loads += round(self.member_load(), 2)
+            d += 1
+        d += round(self.member_load(), 2)
 
-        return dead_loads
+        return d
 
 
 # TESTS
@@ -162,14 +136,17 @@ def tests():
         "Liens continus",
         "Panneau de gypse 12mm",
     ]
-    test_print_table = DeadLoads(toiture, "Toiture").member_load(True)
+    test2_member_load = DeadLoads(toiture).member_load()
     expected_result = 0.4
-    if test_print_table != expected_result:
-        print("test_print_table -> FAILED")
-        print("result = ", test_print_table)
+    if test2_member_load != expected_result:
+        print("test2_member_load -> FAILED")
+        print("result = ", test2_member_load)
         print("expected = ", expected_result)
     else:
-        print("test_print_table -> PASSED")
+        print("test2_member_load -> PASSED")
+
+    test3_member_load = DeadLoads(["Eau douce"]).member_load()
+    print(test3_member_load)
 
     print("-------END_TESTS-------")
 
