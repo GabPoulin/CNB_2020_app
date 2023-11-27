@@ -78,6 +78,8 @@ class LiveLoads:
             width: Largeur de surface (m).
             length: Longueur de surface (m).
             reinforced_slab: Spécifier "True" si la surface est une dalle armée.
+        Returns:
+            Charge uniforme et facteur de réduction (si applicable).
         """
 
         load = self._get_live_info().uniform
@@ -87,7 +89,9 @@ class LiveLoads:
             load = self._dining_area(load, area)
 
         reduction_factor, reduction_message = self._tributary_area(
-            reinforced_slab, load, area
+            reinforced_slab,
+            load,
+            area,
         )
         load *= reduction_factor
 
@@ -153,7 +157,11 @@ class LiveLoads:
         return factor, message
 
     def concentrated_load(self):
-        """4.1.5.9. Surcharges concentrées"""
+        """4.1.5.9. Surcharges concentrées
+
+        Returns:
+            Charge concentrée et la surface sur laquelle la charge est appliquée.
+        """
 
         load = 0
         message = "Aucune charge concentrée requise."
