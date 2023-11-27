@@ -32,6 +32,7 @@ class ClimaticDataTable(declarative_base()):
 
     __tablename__ = "climatic_data"
     location: str = Column("location", TEXT, primary_key=True)
+    rain: int = Column("rain", INTEGER)
     snow: float = Column("snow", REAL)
     snow_rain: float = Column("snow_rain", REAL)
     engine = create_engine("sqlite:///loads.db")
@@ -57,7 +58,7 @@ class SnowLoads:
         exposed_to_wind: Bâtiment exposé au vent sur toutes ses faces.
         importance: Catégorie de risque ("Faible", "Normal", "Élevé", "Protection civile").
         limit_state: Spécifier ("ÉLU", "ÉLTS").
-        meltwater: Écoulement des eaux de fonte depuis un toit adjacent.
+        meltwater: Ecoulement des eaux de fonte depuis un toit adjacent.
         north_area: Région située au nord de la limite des arbres.
         projections_height: Hauteur de l'élément hors toit (m).
         rain_accumulation: Possibilité d'ccumulation d'eaux pluviales.
@@ -101,9 +102,13 @@ class SnowLoads:
         )
 
     def specified_load(self):
-        """4.1.6.1. Charge spécifiée due à la pluie, ou à la neige et à la pluie qui l'accompagne."""
+        """4.1.6.1. Charge spécifiée due à la pluie, ou à la neige et à la pluie qui l'accompagne.
 
-        return max(self._specified_snow_load(), self._specified_rain_load())
+        Returns:
+            Charge spécifiée maximale retenue (S_pluie ou S_neige).
+        """
+
+        return round(max(self._specified_snow_load(), self._specified_rain_load()), 2)
 
     def _specified_snow_load(self):
         """4.1.6.2. - S: Charge spécifiée due à la neige."""
@@ -114,7 +119,6 @@ class SnowLoads:
         wind_factor = self._wind_factor()
         slope_factor = self._slope_factor()
         accumulation_factor = self._accumulation_factor()
-        print("Ca =", accumulation_factor)
         rain_load = min(
             self._get_climate_info().snow_rain,
             snow_load
@@ -127,7 +131,7 @@ class SnowLoads:
             + rain_load
         )
 
-        return round(specified_load, 2)
+        return specified_load
 
     def _importance_factor(self):
         """Tableau 4.1.6.2.-A. - Is: coefficient de risque de la charge due à la neige."""
@@ -246,12 +250,19 @@ class SnowLoads:
             ca_f = 1
             ca = max(ca, ca_f)
 
+        print("Ca =", ca)
+
         return ca
 
     def _specified_rain_load(self):
-        specified_load = 1
+        """4.1.6.4. - S: Charge spécifiée due à la pluie."""
+
+        specified_load = self._get_climate_info().rain * 0.0098
 
         return specified_load
+
+    def _multi_level(self):
+        pass
 
     def _snow_specific_weight(self):
         """4.1.6.13. - γ: poids spécifique de la neige."""
@@ -273,13 +284,19 @@ def tests():
         roof_larger_dimension=5,
         roof_smaller_dimension=5,
         slope=25,
+        dome=False,
         drifting_distance=10,
         exposed_to_wind=True,
         importance="Normal",
         limit_state="ÉLU",
+        meltwater=False,
         north_area=False,
+        projections_height=0,
+        rain_accumulation=False,
         rural_area=True,
+        sliding=False,
         slippery_roof=True,
+        valley=False,
         wind_obstructions_distance=1,
         wind_obstructions_height=0.86,
     ).specified_load()
