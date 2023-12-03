@@ -61,7 +61,7 @@ class SnowLoads:
         meltwater: Ecoulement des eaux de fonte depuis un toit adjacent.
         north_area: Région située au nord de la limite des arbres.
         projections_height: Hauteur de l'élément hors toit (m).
-        rain_accumulation: Possibilité d'ccumulation d'eaux pluviales.
+        rain_accumulation: Possibilité d'accumulation d'eaux pluviales.
         rural_area: Région rurale.
         sliding: Glissement provenant d'un toit adjacent.
         slippery_roof: Toit glissant sans obstruction.
@@ -108,45 +108,39 @@ class SnowLoads:
             Charge spécifiée maximale retenue (S_pluie ou S_neige).
         """
 
-        return round(max(self._specified_snow_load(), self._specified_rain_load()), 2)
+        load = max(self._specified_snow_load(), self._specified_rain_load())
+
+        return round(load, 2)
 
     def _specified_snow_load(self):
         """4.1.6.2. - S: Charge spécifiée due à la neige."""
 
-        importance_factor = self._importance_factor()
-        snow_load = self._get_climate_info().snow
-        basic_factor = self._basic_factor()
-        wind_factor = self._wind_factor()
-        slope_factor = self._slope_factor()
-        accumulation_factor = self._accumulation_factor()
-        rain_load = min(
-            self._get_climate_info().snow_rain,
-            snow_load
-            * (basic_factor * wind_factor * slope_factor * accumulation_factor),
-        )
+        i_s = self._importance_factor()
+        ss = self._get_climate_info().snow
+        cb = self._basic_factor()
+        cw = self._wind_factor()
+        cs = self._slope_factor()
+        ca = self._accumulation_factor()
+        sr = min(self._get_climate_info().snow_rain, ss * (cb * cw * cs * ca))
 
-        specified_load = importance_factor * (
-            snow_load
-            * (basic_factor * wind_factor * slope_factor * accumulation_factor)
-            + rain_load
-        )
+        load = i_s * (ss * (cb * cw * cs * ca) + sr)
 
-        return specified_load
+        return load
 
     def _importance_factor(self):
         """Tableau 4.1.6.2.-A. - Is: coefficient de risque de la charge due à la neige."""
 
-        factor = 1
+        i_s = 1
         if self.importance == "Faible":
-            factor = 0.8
+            i_s = 0.8
         if self.importance == "Élevé":
-            factor = 1.15
+            i_s = 1.15
         if self.importance == "Protection civile":
-            factor = 1.25
+            i_s = 1.25
         if self.limit_state == "ÉLTS":
-            factor = 0.9
+            i_s = 0.9
 
-        return factor
+        return i_s
 
     def _basic_factor(self):
         """4.1.6.2.2). - Cb: coefficient de base de charge de neige sur le toit."""
@@ -176,9 +170,8 @@ class SnowLoads:
         if self.importance in ("Faible", "Normal"):
             a = self.exposed_to_wind
             b = self.wind_obstructions_height > 0
-            c = self.drifting_distance > 5
-            d = not self.sliding
-            if a and b and c and d:
+            c = not self.sliding
+            if a and b and c:
                 if self.north_area:
                     cw = 0.5
                 elif self.rural_area:
@@ -257,12 +250,33 @@ class SnowLoads:
     def _specified_rain_load(self):
         """4.1.6.4. - S: Charge spécifiée due à la pluie."""
 
-        specified_load = self._get_climate_info().rain * 0.0098
+        load = self._get_climate_info().rain * 0.0098
 
-        return specified_load
+        return load
 
-    def _multi_level(self):
-        pass
+    def _multi_level_roofs(self):
+        """4.1.6.5. - Ca: Toits à plusieurs niveaux."""
+
+        ca = 1
+
+        cas = 1
+        beta = 1
+        if cas in (2, 3):
+            beta = 0.67
+
+        gamma = self._snow_specific_weight()
+        cb = self._basic_factor()
+        ss = self._get_climate_info().snow
+        ca0 = min(beta * ((gamma * h) / (cb * ss)), f / cb)
+
+        x = self.drifting_distance
+
+        xd = 5 * ((cb * ss) / gamma) * (ca0 - 1)
+
+        if 0 <= x <= xd:
+            ca = ca0 - (ca0 - 1) * (x / xd)
+
+        return ca
 
     def _snow_specific_weight(self):
         """4.1.6.13. - γ: poids spécifique de la neige."""
@@ -314,5 +328,6 @@ def tests():
 # RUN FILE
 if __name__ == "__main__":
     tests()
+    SnowLoads("Gaspé", 5, 5, 5, 0, drifting_distance=1)._multi_level_roofs()
 
 # END
