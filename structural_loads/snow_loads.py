@@ -53,6 +53,7 @@ class SnowLoads:
         slope: Pente du toit (°).
 
     Optional:
+        case: Cas de charge due à la neige (cas 1, 2 ou 3).
         dome: Toit à 2 versants ou en dôme.
         drifting_distance: Distance avec le toit adjacent plus élevé (m).
         exposed_to_wind: Bâtiment exposé au vent sur toutes ses faces.
@@ -60,6 +61,7 @@ class SnowLoads:
         limit_state: Spécifier ("ÉLU", "ÉLTS").
         meltwater: Ecoulement des eaux de fonte depuis un toit adjacent.
         north_area: Région située au nord de la limite des arbres.
+        parapet_height: Hauteur du parapet(m).
         projections_height: Hauteur de l'élément hors toit (m).
         rain_accumulation: Possibilité d'accumulation d'eaux pluviales.
         rural_area: Région rurale.
@@ -76,6 +78,7 @@ class SnowLoads:
     roof_smaller_dimension: float
     slope: float
 
+    case: int = 1
     dome: bool = False
     drifting_distance: float = 10
     exposed_to_wind: bool = False
@@ -83,11 +86,13 @@ class SnowLoads:
     limit_state: str = "ÉLU"
     meltwater: bool = False
     north_area: bool = False  # inclure dans db
+    parapet_height: float = 0
     projections_height: float = 0
     rain_accumulation: bool = False
     rural_area: bool = False  # inclure dans db
     sliding: bool = False
     slippery_roof: bool = False
+    upper_roof: float = 0
     valley: bool = False
     wind_obstructions_distance: float = 0
     wind_obstructions_height: float = 0
@@ -259,14 +264,20 @@ class SnowLoads:
 
         ca = 1
 
-        cas = 1
         beta = 1
-        if cas in (2, 3):
+        if self.case in (2, 3):
             beta = 0.67
-
         gamma = self._snow_specific_weight()
+        h = self.upper_roof
         cb = self._basic_factor()
         ss = self._get_climate_info().snow
+        lcs = 
+        hp = self.parapet_height
+        hp_prime = 
+        cws = self._wind_factor()
+        f = 0.35*beta*((gamma*(lcs-5*hp_prime))/ss)**(1/2)+cb
+        if cws = 1:
+            f = min(f,5)
         ca0 = min(beta * ((gamma * h) / (cb * ss)), f / cb)
 
         x = self.drifting_distance
