@@ -85,11 +85,11 @@ class SnowLoads:
     importance: str = "Normal"
     limit_state: str = "ÉLU"
     meltwater: bool = False
-    north_area: bool = False  # inclure dans db
+    north_area: bool = False
     parapet_height: float = 0
     projections_height: float = 0
     rain_accumulation: bool = False
-    rural_area: bool = False  # inclure dans db
+    rural_area: bool = False
     sliding: bool = False
     slippery_roof: bool = False
     upper_roof: float = 0
@@ -175,8 +175,9 @@ class SnowLoads:
         if self.importance in ("Faible", "Normal"):
             a = self.exposed_to_wind
             b = self.wind_obstructions_height > 0
-            c = not self.sliding
-            if a and b and c:
+            c = self.drifting_distance > 5
+            d = not self.sliding
+            if a and c and d:
                 if self.north_area:
                     cw = 0.5
                 elif self.rural_area:
